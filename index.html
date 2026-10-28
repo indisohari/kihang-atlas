@@ -218,7 +218,7 @@ a{color:inherit;text-underline-offset:3px}
    <select class="select-box" id="category"><option value="">모든 주제</option><option>자연·걷기</option><option>도시·생활</option><option>역사·문화</option><option>음식·주류</option><option>숙박·온천</option></select>
    <div class="filter-two">
     <div class="filter-group"><label for="continent" class="label">대륙·광역권</label><select class="select-box" id="continent"><option value="">세계 전체</option><option>아시아</option><option>유럽</option><option>아프리카</option><option>북아메리카</option><option>남아메리카</option><option>유라시아 접경</option><option>여러 나라 여정</option></select></div>
-    <div class="filter-group"><label for="theme" class="label">활동 테마</label><select class="select-box" id="theme"><option value="">모든 활동</option><option value="walk">걷기·트레킹</option><option value="water">크루즈·선박</option><option value="rail">철도·경관열차</option><option value="drive">로드트립</option><option value="onsen">온천·료칸</option><option value="art">공연·예술</option><option value="food">음식·술</option><option value="history">역사·건축</option></select></div>
+    <div class="filter-group"><label for="theme" class="label">활동 테마</label><select class="select-box" id="theme"><option value="">모든 활동</option><option value="walk">걷기·트레킹</option><option value="water">크루즈·선박</option><option value="rail">철도·철길 이야기</option><option value="drive">로드트립</option><option value="onsen">온천·료칸</option><option value="art">공연·예술</option><option value="food">음식·술</option><option value="history">역사·건축</option></select></div>
     <div class="filter-group"><label for="season" class="label">계절과 근거</label><select class="select-box" id="season"><option value="">계절 전체</option><optgroup label="공식 자료에서 계절 특징 확인"><option value="verified:봄">봄 · 공식 근거</option><option value="verified:여름">여름 · 공식 근거</option><option value="verified:가을">가을 · 공식 근거</option><option value="verified:겨울">겨울 · 공식 근거</option></optgroup><optgroup label="원문에 계절 표현 등장"><option value="mentioned:봄">봄 · 원문 언급</option><option value="mentioned:여름">여름 · 원문 언급</option><option value="mentioned:가을">가을 · 원문 언급</option><option value="mentioned:겨울">겨울 · 원문 언급</option></optgroup></select></div>
     </div><div class="geo-hierarchy" id="geoHierarchy" hidden>
 <div class="geo-hierarchy-title">지역 안에서 더 찾기 <span>원문 지역 표기 기준</span></div>
@@ -256,6 +256,7 @@ a{color:inherit;text-underline-offset:3px}
 (()=>{'use strict';
 const payload=JSON.parse(document.querySelector('#atlasData').textContent);
 const entries=payload.items;
+if(payload.sourceSyncDate){document.querySelector('.top-meta').textContent='요약 갱신 · '+String(payload.sourceSyncDate).slice(0,10);}
 const byCountry=Object.create(null);
 for(const item of entries)(byCountry[item.country]||=[]).push(item);
 const countryList=Object.keys(byCountry).sort((a,b)=>byCountry[b].length-byCountry[a].length||a.localeCompare(b,'ko'));
@@ -273,6 +274,7 @@ const continentOf=Object.fromEntries(Object.entries(geoGroups).flatMap(([group,c
 const KOREA_TAGS=['서울','부산','인천','광주','대구','대전','울산','경기','강원','충북','충남','전북','전남','경북','경남','제주'];
 const JAPAN_TAGS=['홋카이도','아오모리','아키타','이와테','미야기','야마가타','후쿠시마','도쿄','도치기','군마','나가노','니가타','도야마','기후','야마나시','시즈오카','후쿠오카','사가','가고시마','구마모토','미야자키','나가사키','규슈','오키나와'];
 const monthWords={봄:/봄|신록|벚꽃|백서향/,여름:/여름|피서/,가을:/가을|단풍|억새/,겨울:/겨울|설경|눈꽃|한겨울/};
+const activityLabels={walk:'걷기·트레킹',water:'크루즈·물길',rail:'철도·철길',drive:'로드트립',onsen:'온천·료칸',art:'공연·예술',food:'음식·술',history:'역사·건축'};
 const themes={
  walk:/걷기|도보|트레킹|등산|산책|하이킹|숲길|둘레길|순례|올레|종주|트레일/,
  water:/크루즈|유람선|선박여행|여객선|페리|보트|선착장|카약|운하 여행/,
@@ -284,7 +286,7 @@ const themes={
  history:/역사|유산|고택|교회|대성당|사원|궁전|건축|도시사|세계유산|고분|서원|식민/
 };
 function tagText(item){return [item.place,item.editorial_reason,item.author_relation].filter(Boolean).join(' ');}
-function themeMatch(item,key){return !key||Boolean(themes[key]?.test(tagText(item)))||(key==='walk'&&item.kind==='자연·걷기'&&/길|숲|산|계류|오름|올레/.test(item.place))||(key==='food'&&item.kind==='음식·주류')||(key==='history'&&item.kind==='역사·문화');}
+function themeMatch(item,key){if(key==='water'&&item.article_id==='569'&&item.place==='Blue Note Hawaii 라이브재즈')return false;return !key||Boolean(themes[key]?.test(tagText(item)))||(key==='walk'&&item.kind==='자연·걷기'&&/길|숲|산|계류|오름|올레/.test(item.place))||(key==='food'&&item.kind==='음식·주류')||(key==='history'&&item.kind==='역사·문화');}
 function seasonMatch(item,season){if(!season)return true;const [mode,s]=season.split(':');if(mode==='verified')return Boolean(item.verified_seasons?.some(x=>x.season===s));if(mode==='mentioned')return Boolean(item.source_seasons?.includes(s));return false;}
 function localAreas(country,field,filterFn){const totals=new Map();entries.filter(i=>i.country===country && (!filterFn||filterFn(i))).forEach(i=>{for(const tag of (i.geo_review?.[field]||[]))totals.set(tag,(totals.get(tag)||0)+1);});return [...totals].map(([name,count])=>({name,count})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'ko'));} 
 function updateLocalArea(){const box=$('geoHierarchy'),pref=$('localRegion'),city=$('localCity'),macro=$('jpMacro');
@@ -371,12 +373,13 @@ function selectCountry(country,withZoom=true){if(country&&!byCountry[country])re
 function reset(){state.scope='all';state.country=null;state.kind='';state.query='';state.continent='';state.theme='';state.season='';state.localRegion='';state.localCity='';state.jpMacro='';state.sort='source';state.page=1;el.search.value='';el.category.value='';setView(mapDefault);render();}
 function openDetail(index){const item=entries[index];if(!item)return;state.lastFocus=document.activeElement;el.backdrop.hidden=false;el.detail.hidden=false;document.body.style.overflow='hidden';$('detailIndex').textContent=`FIELD NOTE / ${String(index+1).padStart(3,'0')}`;$('detailTitle').textContent=item.place;$('detailRegion').textContent=item.region+' · '+item.country;
  const detail=String(item.public_note||'');
+ const activities=Object.entries(activityLabels).filter(([key])=>themeMatch(item,key)).map(([,label])=>label);
  const linkSafe=(url)=>typeof url==='string'&&/^https:\/\//.test(url)?url:'#';
  const reported=(item.source_seasons||[]).length?`<p>원문 표현: ${clean(item.source_seasons.join(' · '))} · 편집상 계절 표현으로 인식, 추천 보증 아님</p>`:'<p>원문 계절 정보: 등록된 표현 없음</p>';
  const supported=(item.verified_seasons||[]).map(t=>`<p><b>${clean(t.season)}</b> ${clean(t.reason)} · <a href="${clean(t.url)}" target="_blank" rel="noopener noreferrer">${clean(t.source_name)}</a> (2026-10-29 근거 확인)</p>`).join('');
  const seasonPanel=`<div class="detail-season"><strong>계절 정보의 근거</strong>${supported||'<p>공식 계절 추천 근거는 이 기록에 등록하지 않았습니다.</p>'}${reported}<small>개별 여행일의 입장·기상·도로·교통은 별도 확인해야 합니다.</small></div>`;
 
- $('detailContent').innerHTML=`${seasonPanel}<hr><h3>이 기록을 읽는 이유</h3><p>${clean(item.editorial_reason)}</p><hr><dl class="detail-meta"><dt>여행 유형</dt><dd>${clean(item.kind)}</dd><dt>저자의 관계</dt><dd>${clean(item.author_relation||'원문 기준 확인 필요')}</dd><dt>원문 평가</dt><dd>${clean(item.author_assessment)}</dd><dt>검증 범위</dt><dd>${clean(item.verification||'현행 정보 미확인')}</dd></dl><div class="detail-notice"><strong>여행 전에 확인할 점</strong><br>${clean(detail||'방문일의 운영·접근·요금 정보를 별도 확인해 주세요.').replace(/\n/g,'<br>')}</div><div class="detail-refs"><a href="${clean(linkSafe(item.article_url))}" target="_blank" rel="noopener noreferrer">브런치 원문 ↗</a></div><p style="color:#698083;font-size:11px;margin-top:23px">출처: 브런치 원문 #${clean(item.article_id)} · 기행 아틀라스 공개 요약(2026.10.29). 원문 저작권은 원 저작자에게 있으며, 부분적인 출처 검토가 원문 전체나 방문일 운영정보의 인증을 뜻하지는 않습니다.</p>`;
+ $('detailContent').innerHTML=`${seasonPanel}<hr><h3>이 기록을 읽는 이유</h3><p>${clean(item.editorial_reason)}</p><hr><dl class="detail-meta"><dt>여행 유형</dt><dd>${clean(item.kind)}</dd><dt>활동 테마</dt><dd>${clean(activities.length?activities.join(" · "):"확인된 탐색 태그 없음")}<small> · 원문 단서 기반</small></dd><dt>저자의 관계</dt><dd>${clean(item.author_relation||'원문 기준 확인 필요')}</dd><dt>원문 평가</dt><dd>${clean(item.author_assessment)}</dd><dt>검증 범위</dt><dd>${clean(item.verification||'현행 정보 미확인')}</dd></dl><div class="detail-notice"><strong>여행 전에 확인할 점</strong><br>${clean(detail||'방문일의 운영·접근·요금 정보를 별도 확인해 주세요.').replace(/\n/g,'<br>')}</div><div class="detail-refs"><a href="${clean(linkSafe(item.article_url))}" target="_blank" rel="noopener noreferrer">브런치 원문 ↗</a></div><p style="color:#698083;font-size:11px;margin-top:23px">출처: 브런치 원문 #${clean(item.article_id)} · 기행 아틀라스 공개 요약(2026.10.29). 원문 저작권은 원 저작자에게 있으며, 부분적인 출처 검토가 원문 전체나 방문일 운영정보의 인증을 뜻하지는 않습니다.</p>`;
  el.detail.focus();}
 function closeDetail(){if(el.detail.hidden)return;el.detail.hidden=true;el.backdrop.hidden=true;document.body.style.overflow='';if(state.lastFocus?.isConnected&&state.lastFocus.focus)state.lastFocus.focus();}
 $('moreCountries').addEventListener('click',()=>{state.countryExpanded=!state.countryExpanded;updateCountryButtons();});
