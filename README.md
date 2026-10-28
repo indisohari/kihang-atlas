@@ -9,7 +9,7 @@ A static, source-linked thematic travel atlas of 322 experiences from 178 public
 3. In repository **Settings → Pages**, choose **Deploy from a branch** and **main → /(root)**, then Save.
 4. Verify `https://<owner>.github.io/kihang-atlas/` in a browser, including mobile layouts, search, filters, and original Brunch article links.
 
-No package install, GitHub Action, custom server, external mapping service, fonts, or API key is required. The current site is a dated static snapshot; it does not sync live with Notion or Google Sheets.
+No package install, external mapping service, fonts, or API key is required for browsing. The current site is static. An optional bound Google Apps Script can refresh already approved public summary fields; it needs a one-time owner-side setup and is not yet active.
 
 ## Content/provenance limits
 
@@ -23,4 +23,13 @@ No package install, GitHub Action, custom server, external mapping service, font
 
 ## Updating the data
 
-Regenerate the public `index.html` with the reviewed source-to-public transform, then re-run the privacy and browser tests. Do **not** publish the private v4 source HTML or a raw personal Notion export.
+For manual changes, regenerate the public `index.html` with the reviewed source-to-public transform, then re-run privacy and browser tests. Do **not** publish the private v4 HTML or raw Notion/Google exports.
+## Improvements delivered on 2026-10-29
+
+- Quick themes (walking, cruise/water, railway, onsen), keyword token search, country facets with contextual counts, sorting and reset.
+- Editorial correction: a Hawaii jazz venue is no longer tagged as a cruise/water experience solely from the wider trip context; railway is labelled as 'rail and railway stories' rather than guaranteed train rides.
+- Explicit activity tags in each source detail. See [classification audit](docs/CONTENT_CLASSIFICATION.md) for coverage and open uncertainties.
+
+## Optional safe source update (requires owner activation)
+
+The [Apps Script](automation/Code.gs) and [activation instructions](automation/SETUP.md) implement one-way daily publication of permitted **public summary edits only** for the existing 322 approved experience rows. Private Notion trips, Google Sheet link IDs, internal operational columns and identifiable private visits are excluded. New rows and location changes require editorial review. **Do not mistake code committed to this repository for a live trigger; setup and OAuth remain outstanding.**
