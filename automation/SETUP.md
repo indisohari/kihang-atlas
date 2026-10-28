@@ -8,7 +8,7 @@ This is a private Google Sheet → public GitHub Pages *projection*, not a publi
 
 - Input: the existing **personal** Google Sheet and its tab `13_개인여행_참고`, 13 columns. No private Sheet ID, URL, Notion record, or credential is stored in this repository.
 - Approved scope: the **first 322** curated public-essay experience rows. Verify exact source row position, region, place, country, Brunch article ID and URL before publishing anything.
-- Fields refreshed: original Sheet columns **C–F and L** only (category, author assessment, editorial rationale, verification-status summary, author relationship). Internal evidence link I, travel decision notes J, source-case pointer K, and any private Notion information are *never* copied.
+- Fields refreshed: original Sheet columns **D–F and L** only (author assessment, editorial rationale, verification-status summary, author relationship). A change in source category **C** blocks automatic publication pending review of the derived place taxonomy. Internal evidence link I, travel decision notes J, source-case pointer K, and any private Notion information are *never* copied.
 - Source-derived geography and separately verified seasonal attributes stay intact. Added rows are counted as pending but **never published automatically**. Reordering, renaming, changing geography/article IDs or URLs stops the run for human review.
 - The published Mongolian private-ranch account remains redacted. The script explicitly prevents copying that record's original identifying information. A new changed public field containing a private link, contact pattern or known confidential marker is rejected.
 - Every update uses GitHub's latest content SHA, so conflicting writes fail rather than silently overwrite one another.
