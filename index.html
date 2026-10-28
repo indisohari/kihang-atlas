@@ -182,6 +182,9 @@ a{color:inherit;text-underline-offset:3px}
 @media(max-width:690px){.geo-hierarchy-fields,.geo-hierarchy-fields.is-japan{grid-template-columns:1fr 1fr}.geo-hierarchy-fields.is-japan #jpMacroBox{grid-column:1 / -1}}
 @media(max-width:355px){.geo-hierarchy-fields,.geo-hierarchy-fields.is-japan{grid-template-columns:1fr}.geo-hierarchy-fields.is-japan #jpMacroBox{grid-column:auto}.geo-hierarchy-title span{display:block;margin:4px 0 0}}
 @media(max-width:530px){.label,.geo-hierarchy .label{font-size:12px}.taxonomy-note,.results-explain{font-size:12px}.card-copy{font-size:13px;line-height:1.6}.geo-hierarchy-title span{font-size:11px}}
+
+.theme-shortcuts{margin:0 0 15px}.shortcuts-label{font-size:11px;font-weight:750;color:#385d62;margin-bottom:7px}.shortcuts-label span{font-weight:500;color:#5c7476}.shortcut-row{display:grid;grid-template-columns:1fr 1fr;gap:6px}.shortcut-row button{display:flex;justify-content:space-between;align-items:center;gap:4px;min-height:38px;background:#f4f8f6;border:1px solid #d6e4df;border-radius:3px;padding:7px 9px;text-align:left;font-size:11px;font-weight:680;color:#34595a}.shortcut-row button:hover{background:#edf5f2;border-color:#90bdb1}.shortcut-row button[aria-pressed="true"]{background:#dcece7;color:#164f46;border-color:#468776}.shortcut-row em{font-style:normal;font-size:10px;font-variant-numeric:tabular-nums;color:inherit}.results-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-8px 0 12px}.results-toolbar label{font-size:11px;font-weight:720;color:#4e6a6c}.sort-order{border:1px solid #d0dfd9;background:#fff;padding:6px 7px;font-size:11px;flex:1;min-height:38px;min-width:0;color:#2f5154}.results-toolbar button{background:transparent;border:0;color:#275c58;text-decoration:underline;text-underline-offset:3px;padding:8px 3px;font-size:11px;font-weight:730;min-height:38px}
+@media(max-width:350px){.shortcuts-label span{display:block;margin-top:3px}}
 </style>
 </head>
 <body>
@@ -200,13 +203,22 @@ a{color:inherit;text-underline-offset:3px}
 
    <div id="storyFilters">
    <label for="search" class="label">기행 검색</label>
-   <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/></svg><input class="search" type="search" id="search" placeholder="도시, 장소, 이야기 검색" autocomplete="off"></div>
+   <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/></svg><input class="search" type="search" id="search" placeholder="예: 나가노 숲길 (여러 단어 검색)" autocomplete="off"></div>
    <div class="scope" role="group" aria-label="지역 범위"><button type="button" data-scope="all" aria-pressed="true">전체</button><button type="button" data-scope="korea" aria-pressed="false">국내</button><button type="button" data-scope="world" aria-pressed="false">해외</button></div>
+   <div class="theme-shortcuts" role="group" aria-label="활동 테마 바로가기">
+    <div class="shortcuts-label">활동 바로가기 <span>여러 활동이 한 기록에 겹칠 수 있습니다.</span></div>
+    <div class="shortcut-row" id="themeShortcuts">
+      <button type="button" data-theme="walk" aria-pressed="false">걷기 <em>0</em></button>
+      <button type="button" data-theme="water" aria-pressed="false">크루즈·물길 <em>0</em></button>
+      <button type="button" data-theme="rail" aria-pressed="false">철도 <em>0</em></button>
+      <button type="button" data-theme="onsen" aria-pressed="false">온천 <em>0</em></button>
+    </div>
+   </div>
    <label for="category" class="label">이야기 주제</label>
    <select class="select-box" id="category"><option value="">모든 주제</option><option>자연·걷기</option><option>도시·생활</option><option>역사·문화</option><option>음식·주류</option><option>숙박·온천</option></select>
    <div class="filter-two">
     <div class="filter-group"><label for="continent" class="label">대륙·광역권</label><select class="select-box" id="continent"><option value="">세계 전체</option><option>아시아</option><option>유럽</option><option>아프리카</option><option>북아메리카</option><option>남아메리카</option><option>유라시아 접경</option><option>여러 나라 여정</option></select></div>
-    <div class="filter-group"><label for="theme" class="label">활동 테마</label><select class="select-box" id="theme"><option value="">모든 활동</option><option value="walk">걷기·트레킹</option><option value="water">물길·선박</option><option value="rail">철도·경관열차</option><option value="drive">로드트립</option><option value="onsen">온천·료칸</option><option value="art">공연·예술</option><option value="food">음식·술</option><option value="history">역사·건축</option></select></div>
+    <div class="filter-group"><label for="theme" class="label">활동 테마</label><select class="select-box" id="theme"><option value="">모든 활동</option><option value="walk">걷기·트레킹</option><option value="water">크루즈·선박</option><option value="rail">철도·경관열차</option><option value="drive">로드트립</option><option value="onsen">온천·료칸</option><option value="art">공연·예술</option><option value="food">음식·술</option><option value="history">역사·건축</option></select></div>
     <div class="filter-group"><label for="season" class="label">계절과 근거</label><select class="select-box" id="season"><option value="">계절 전체</option><optgroup label="공식 자료에서 계절 특징 확인"><option value="verified:봄">봄 · 공식 근거</option><option value="verified:여름">여름 · 공식 근거</option><option value="verified:가을">가을 · 공식 근거</option><option value="verified:겨울">겨울 · 공식 근거</option></optgroup><optgroup label="원문에 계절 표현 등장"><option value="mentioned:봄">봄 · 원문 언급</option><option value="mentioned:여름">여름 · 원문 언급</option><option value="mentioned:가을">가을 · 원문 언급</option><option value="mentioned:겨울">겨울 · 원문 언급</option></optgroup></select></div>
     </div><div class="geo-hierarchy" id="geoHierarchy" hidden>
 <div class="geo-hierarchy-title">지역 안에서 더 찾기 <span>원문 지역 표기 기준</span></div>
@@ -216,11 +228,13 @@ a{color:inherit;text-underline-offset:3px}
 <div class="filter-group" id="localCityBox"><label for="localCity" class="label">시·군·구·섬</label><select class="select-box" id="localCity"><option value="">모든 지역</option></select></div>
 </div>
    </div>
-   <p class="taxonomy-note">활동은 원문 표현 기반 시범 분류입니다. 계절은 <b>공식 근거로 확인한 특징</b>과 <b>원문에 계절 표현이 등장한 것</b>을 별도로 검색합니다. 어느 쪽도 방문일의 운영·날씨를 보증하지 않습니다. 여러 시·도가 함께 표시된 기행은 중복 건수로 계산하지 않습니다.</p>
+   <p class="taxonomy-note">활동은 원문 표현 기반 탐색 태그이며 실제 탑승·방문을 일률적으로 보증하지 않습니다. 계절은 <b>공식 근거로 확인한 특징</b>과 <b>원문에 계절 표현이 등장한 것</b>을 별도로 검색합니다. 어느 쪽도 방문일의 운영·날씨를 보증하지 않습니다. 여러 시·도가 함께 표시된 기행은 중복 건수로 계산하지 않습니다.</p>
    </div>
   </div>
   <section class="countries" aria-label="나라 선택"><div class="section-label"><h2>나라로 탐색하기</h2><button type="button" class="minor-button" id="moreCountries" aria-expanded="false">전체 국가 보기</button></div><div id="countryList" class="country-list"></div></section>
-  <section class="results" id="results"><div class="results-head"><h2>기행 목록</h2><span class="results-count" aria-live="polite" id="resultCount">322건</span></div><p class="results-explain" id="resultsExplain">여행지 이름을 누르면 이야기와 출처를 읽을 수 있습니다.</p><div class="cards" id="cards"></div><div id="pager" class="pager"><button type="button" id="prevPage">이전</button><span id="pageInfo" aria-label="페이지 상태">1 / 54</span><button type="button" id="nextPage">다음</button></div></section>
+  <section class="results" id="results"><div class="results-head"><h2>기행 목록</h2><span class="results-count" aria-live="polite" id="resultCount">322건</span></div><p class="results-explain" id="resultsExplain">여행지 이름을 누르면 이야기와 출처를 읽을 수 있습니다.</p>
+  <div class="results-toolbar"><label for="sortOrder">정렬</label><select id="sortOrder" class="sort-order" aria-label="기행 정렬"><option value="source">원문 정리 순서</option><option value="place">장소명 가나다순</option><option value="region">국가·지역별</option></select><button id="clearFilters" type="button" hidden>필터 초기화</button></div>
+  <div class="cards" id="cards"></div><div id="pager" class="pager"><button type="button" id="prevPage">이전</button><span id="pageInfo" aria-label="페이지 상태">1 / 54</span><button type="button" id="nextPage">다음</button></div></section>
  </aside>
  <section class="map-area" aria-labelledby="mapTitle">
   <div class="map-head"><div><div class="kicker">CARTOGRAPHIC INDEX / 50 REGIONS</div><h2 id="mapTitle">한 장의 지도, 322개의 시선</h2></div><div class="map-actions" aria-label="지도 조작"><button type="button" id="resetMap">세계 전체</button><button type="button" id="zoomOut" aria-label="지도 축소">−</button><span class="zoom-val" id="zoomVal">100%</span><button type="button" id="zoomIn" aria-label="지도 확대">+</button></div></div>
@@ -288,7 +302,7 @@ if(state.localCity&&!localOptions.some(z=>z.name===state.localCity))state.localC
 renderOpts(city,localOptions,'시·군·섬 전체',state.localCity);
 } 
 
-const state={scope:'all',country:null,kind:'',query:'',page:1,countryExpanded:false,view:[0,0,1100,560],lastFocus:null,continent:'',theme:'',season:'',localRegion:'',localCity:'',jpMacro:''};
+const state={scope:'all',country:null,kind:'',query:'',page:1,countryExpanded:false,view:[0,0,1100,560],lastFocus:null,continent:'',theme:'',season:'',localRegion:'',localCity:'',jpMacro:'',sort:'source'};
 const el={search:$('search'),category:$('category'),countryList:$('countryList'),cards:$('cards'),resultCount:$('resultCount'),resultsExplain:$('resultsExplain'),pager:$('pager'),prev:$('prevPage'),next:$('nextPage'),pageInfo:$('pageInfo'),selectedTitle:$('selectedTitle'),selectedCopy:$('selectedCopy'),regionChips:$('regionChips'),map:$('mapSvg'),tooltip:$('mapTooltip'),detail:$('detail'),backdrop:$('backdrop')};
 const mapDefault=[0,0,1100,560];let tooltipTimer;
 function setView(v){const W=1100,H=560;let [x,y,w,h]=v;w=Math.max(140,Math.min(W,w));h=Math.max(71,Math.min(H,h));x=Math.max(0,Math.min(W-w,x));y=Math.max(0,Math.min(H-h,y));state.view=[x,y,w,h];el.map.setAttribute('viewBox',state.view.map(n=>n.toFixed(1)).join(' '));$('zoomVal').textContent=Math.round(W/w*100)+'%';}
@@ -296,11 +310,43 @@ function zoom(factor){const [x,y,w,h]=state.view,cx=x+w/2,cy=y+h/2,nw=Math.min(1
 function focusCountry(country){const b=payload.countryCenters[country]?.bbox;if(!b)return;const [x0,y0,x1,y1]=b;const cx=(x0+x1)/2,cy=(y0+y1)/2;const target=Math.max((x1-x0)*3.6,(y1-y0)*3.6*1100/560,265);const w=Math.min(1100,Math.max(265,target));const h=w*560/1100;setView([cx-w/2,cy-h/2,w,h]);}
 function clean(s){return String(s||'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));}
 function labelRegion(country){return country==='한국'?'국내':country==='복수국가'?'복수 권역':'해외';}
-function matches(item){if(state.scope==='korea'&&item.country!=='한국')return false;if(state.scope==='world'&&item.country==='한국')return false;if(state.country&&item.country!==state.country)return false;if(state.continent&&continentOf[item.country]!==state.continent)return false;if(state.jpMacro&&!item.geo_review?.macro_zones?.includes(state.jpMacro))return false;if(state.localRegion&&!item.geo_review?.regions?.includes(state.localRegion))return false;if(state.localCity&&!item.geo_review?.localities?.includes(state.localCity))return false;if(state.kind&&item.kind!==state.kind)return false;if(!themeMatch(item,state.theme)||!seasonMatch(item,state.season))return false;if(state.query){const q=state.query.toLocaleLowerCase('ko');const hay=[item.place,item.region,item.kind,item.editorial_reason,item.country,item.author_relation].join(' ').toLocaleLowerCase('ko');if(!hay.includes(q))return false;}return true;}
+function matches(item,opts={}){
+ if(state.scope==='korea'&&item.country!=='한국')return false;
+ if(state.scope==='world'&&item.country==='한국')return false;
+ if(!opts.ignoreCountry&&state.country&&item.country!==state.country)return false;
+ if(state.continent&&continentOf[item.country]!==state.continent)return false;
+ if(!opts.ignoreLocal&&state.jpMacro&&!item.geo_review?.macro_zones?.includes(state.jpMacro))return false;
+ if(!opts.ignoreLocal&&state.localRegion&&!item.geo_review?.regions?.includes(state.localRegion))return false;
+ if(!opts.ignoreLocal&&state.localCity&&!item.geo_review?.localities?.includes(state.localCity))return false;
+ if(state.kind&&item.kind!==state.kind)return false;
+ if(!opts.ignoreTheme&&!themeMatch(item,state.theme))return false;
+ if(!seasonMatch(item,state.season))return false;
+ if(state.query){
+  const norm=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('ko').replace(/\s+/g,' ').trim();
+  const words=norm(state.query).split(' ').filter(Boolean);
+  const geo=item.geo_review||{};
+  const hay=norm([item.place,item.region,item.kind,item.editorial_reason,item.country,item.author_relation,(geo.regions||[]).join(' '),(geo.localities||[]).join(' '),(geo.macro_zones||[]).join(' ')].join(' '));
+  if(!words.every(w=>hay.includes(w)))return false;
+ }
+ return true;
+}
 function filtered(){return entries.filter(matches)}
-function updateCountryButtons(){const eligible=countryList.filter(c=>!state.continent||continentOf[c]===state.continent);const visible=state.countryExpanded?eligible:eligible.slice(0,4);el.countryList.innerHTML=visible.map(c=>`<button type="button" class="country-choice" data-country="${clean(c)}" aria-pressed="${state.country===c}"><span>${clean(c)}</span><em>${byCountry[c].length}</em></button>`).join('');$('moreCountries').textContent=state.countryExpanded?'접어 보기':'전체 국가 보기';$('moreCountries').setAttribute('aria-expanded',String(state.countryExpanded));}
+function updateCountryButtons(){
+ const counts=Object.create(null);
+ for(const item of entries){if(matches(item,{ignoreCountry:true,ignoreLocal:true}))counts[item.country]=(counts[item.country]||0)+1;}
+ const eligible=countryList.filter(c=>(counts[c]||0)>0||c===state.country);
+ const visible=state.countryExpanded?eligible:eligible.slice(0,4);
+ el.countryList.innerHTML=visible.length?visible.map(c=>`<button type="button" class="country-choice" data-country="${clean(c)}" aria-pressed="${state.country===c}"><span>${clean(c)}</span><em>${counts[c]||0}</em></button>`).join(''):'<p class="facet-empty">현재 조건에 맞는 국가가 없습니다.</p>';
+ $('moreCountries').hidden=eligible.length<=4;
+ $('moreCountries').textContent=state.countryExpanded?'접어 보기':`전체 국가 보기 · ${eligible.length}`;
+ $('moreCountries').setAttribute('aria-expanded',String(state.countryExpanded));
+} 
 function updateMap(){const active=new Set(filtered().map(item=>item.country));document.querySelectorAll('path.recorded').forEach(path=>{path.classList.toggle('is-selected',path.dataset.country===state.country);path.classList.toggle('filtered-out',!active.has(path.dataset.country));path.setAttribute('aria-pressed',String(path.dataset.country===state.country));});const filteredState=Boolean(state.country||state.continent||state.kind||state.theme||state.season||state.localRegion||state.localCity||state.jpMacro||state.query||state.scope!=='all');$('mapLegendText').textContent=filteredState?'현재 조건과 일치하는 국가':'기록 있는 국가';}
-function showCards(){const a=filtered(),pageSize=6,totalPages=Math.ceil(a.length/pageSize);state.page=Math.min(Math.max(1,state.page),Math.max(1,totalPages));el.resultCount.textContent=a.length.toLocaleString('ko-KR')+'건';el.resultsExplain.textContent=(state.country?`${state.country}의 기행 ${a.length}건`:(state.continent?`${state.continent}의 기행 ${a.length}건`:`전체 기행 ${a.length}건`))+' · 시·군·구는 원문 표기, 추천 계절은 공식 근거와 원문 표현을 분리했습니다.';
+function showCards(){
+ const a=filtered();
+ if(state.sort==='place')a.sort((u,v)=>u.place.localeCompare(v.place,'ko')||u.region.localeCompare(v.region,'ko'));
+ else if(state.sort==='region')a.sort((u,v)=>u.country.localeCompare(v.country,'ko')||u.region.localeCompare(v.region,'ko')||u.place.localeCompare(v.place,'ko'));
+ const pageSize=6,totalPages=Math.ceil(a.length/pageSize);state.page=Math.min(Math.max(1,state.page),Math.max(1,totalPages));el.resultCount.textContent=a.length.toLocaleString('ko-KR')+'건';el.resultsExplain.textContent=(state.country?`${state.country}의 기행 ${a.length}건`:(state.continent?`${state.continent}의 기행 ${a.length}건`:`전체 기행 ${a.length}건`))+' · 시·군·구는 원문 표기, 추천 계절은 공식 근거와 원문 표현을 분리했습니다.';
  const start=(state.page-1)*pageSize;const page=a.slice(start,start+pageSize);
  if(!a.length)el.cards.innerHTML='<div class="empty"><strong>조건에 맞는 이야기가 없습니다.</strong><p>국가나 주제를 바꾸거나 검색어를 지워 보세요.</p><button class="minor-button" type="button" id="emptyReset">검색 초기화</button></div>';
  else el.cards.innerHTML=page.map(item=>{const idx=entries.indexOf(item);return `<button class="story-card" type="button" data-index="${idx}"><span class="card-top"><span class="card-region">${clean(item.region)}</span><span class="card-kind">${clean(item.kind)}</span></span><span class="card-title">${clean(item.place)}</span><span class="card-copy">${clean(item.editorial_reason)}</span><span class="card-foot">${item.verified_seasons?.length?`공식 계절 확인 ${clean([...new Set(item.verified_seasons.map(x=>x.season))].join('·'))} · `:''}기록 #${clean(item.article_id)} · 이야기 열기 ↗</span></button>`}).join('');
@@ -309,9 +355,20 @@ function showCards(){const a=filtered(),pageSize=6,totalPages=Math.ceil(a.length
 function narrative(){const country=state.country,cur=filtered();if(country){el.selectedTitle.textContent=`${country}, ${cur.length}개의 이야기`;el.selectedCopy.textContent=`${country}에서 읽을 수 있는 기행 경험입니다. 여행 유형과 키워드로 범위를 좁혀 보세요.`;}else{el.selectedTitle.textContent='어느 나라의 이야기를 펼쳐볼까요?';el.selectedCopy.textContent='국가를 누르면 그곳의 풍경, 일상, 음식, 역사에 관한 기록이 모입니다. 방문 경험과 여행 제안을 구분해 읽을 수 있습니다.'}
  el.regionChips.innerHTML=(country?['한국','일본','이탈리아','모로코'].filter(x=>x!==country):['한국','일본','이탈리아','모로코']).map(c=>`<button type="button" data-country="${clean(c)}">${clean(c)} <span aria-hidden="true">·</span> ${byCountry[c].length}건</button>`).join('')+ (country?'<button type="button" data-country="">모든 국가 보기</button>':'');
 }
-function render(){document.querySelectorAll('button[data-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scope===state.scope)));$('continent').value=state.continent;$('theme').value=state.theme;$('season').value=state.season;updateLocalArea();updateCountryButtons();showCards();updateMap();narrative();}
+function render(){
+ document.querySelectorAll('button[data-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scope===state.scope)));
+ $('continent').value=state.continent;$('theme').value=state.theme;$('season').value=state.season;$('sortOrder').value=state.sort;
+ updateLocalArea();updateCountryButtons();
+ document.querySelectorAll('#themeShortcuts button[data-theme]').forEach(b=>{
+   b.setAttribute('aria-pressed',String(state.theme===b.dataset.theme));
+   b.querySelector('em').textContent=entries.filter(i=>matches(i,{ignoreTheme:true})&&themeMatch(i,b.dataset.theme)).length;
+ });
+ const active=Boolean(state.scope!=='all'||state.country||state.kind||state.query||state.continent||state.theme||state.season||state.localRegion||state.localCity||state.jpMacro);
+ $('clearFilters').hidden=!active;
+ showCards();updateMap();narrative();
+}
 function selectCountry(country,withZoom=true){if(country&&!byCountry[country])return;if(country==='한국'&&state.scope==='world')state.scope='all';if(country&&country!=='한국'&&state.scope==='korea')state.scope='all';state.country=country||null;state.localRegion='';state.localCity='';state.jpMacro='';if(state.country&&state.continent&&continentOf[state.country]!==state.continent)state.continent='';state.page=1;render();if(withZoom){if(state.country)focusCountry(state.country);else setView(mapDefault);} }
-function reset(){state.scope='all';state.country=null;state.kind='';state.query='';state.continent='';state.theme='';state.season='';state.localRegion='';state.localCity='';state.jpMacro='';state.page=1;el.search.value='';el.category.value='';setView(mapDefault);render();}
+function reset(){state.scope='all';state.country=null;state.kind='';state.query='';state.continent='';state.theme='';state.season='';state.localRegion='';state.localCity='';state.jpMacro='';state.sort='source';state.page=1;el.search.value='';el.category.value='';setView(mapDefault);render();}
 function openDetail(index){const item=entries[index];if(!item)return;state.lastFocus=document.activeElement;el.backdrop.hidden=false;el.detail.hidden=false;document.body.style.overflow='hidden';$('detailIndex').textContent=`FIELD NOTE / ${String(index+1).padStart(3,'0')}`;$('detailTitle').textContent=item.place;$('detailRegion').textContent=item.region+' · '+item.country;
  const detail=String(item.public_note||'');
  const linkSafe=(url)=>typeof url==='string'&&/^https:\/\//.test(url)?url:'#';
@@ -330,6 +387,9 @@ document.querySelectorAll('button[data-scope]').forEach(b=>b.addEventListener('c
 el.category.addEventListener('change',()=>{state.kind=el.category.value;state.page=1;render();});
 $('continent').addEventListener('change',()=>{state.continent=$('continent').value;if(state.country&&continentOf[state.country]!==state.continent)state.country=null;state.localRegion='';state.localCity='';state.jpMacro='';state.page=1;render();setView(mapDefault);});
 $('theme').addEventListener('change',()=>{state.theme=$('theme').value;state.page=1;render();});
+$('themeShortcuts').addEventListener('click',e=>{const button=e.target.closest('button[data-theme]');if(!button)return;state.theme=state.theme===button.dataset.theme?'':button.dataset.theme;state.page=1;render();});
+$('clearFilters').addEventListener('click',reset);
+$('sortOrder').addEventListener('change',()=>{state.sort=$('sortOrder').value;state.page=1;render();});
 $('season').addEventListener('change',()=>{state.season=$('season').value;state.page=1;render();});
 $('localRegion').addEventListener('change',()=>{state.localRegion=$('localRegion').value;state.localCity='';state.page=1;render();});
 $('localCity').addEventListener('change',()=>{state.localCity=$('localCity').value;state.page=1;render();});
