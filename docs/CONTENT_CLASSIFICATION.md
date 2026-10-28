@@ -32,3 +32,7 @@ Official-source season observations: **7 seasonal attributes across 6 parents** 
 ## Remaining editorial work
 
 Review 7 Korean and 24 Japanese records with no locality descriptor when useful, without inventing cities; resolve the two Oze cases against their original essays. Check venue hours, transit, admission and seasonal operations for concrete travel dates. New source rows require human approval and classification before inclusion in the public feed.
+
+## v6 place-first correction (2026-10-29)
+
+The geographic coverage and unresolved-item counts above describe the **v5 source-region baseline**, not the enriched v6 review. In v6, two individual Oze huts were verified independently as **Fukushima / Hinoemata**; this does not assign the entire Oze Marsh area to Fukushima. Five additional source records received source-linked administrative geography. The Atlas also classifies source records into spots, routes, areas, events and contextual experiences, while preserving 322 original experience rows. See the current [place-first model and official location evidence](PLACE_MODEL.md). The older 'two Oze unresolved' line above is superseded for these two hut records. Remaining unclear businesses/venues and seasonal recommendations require source-by-source verification.
