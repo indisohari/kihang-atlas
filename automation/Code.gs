@@ -68,7 +68,8 @@ function atlasBuildCandidate_(){
    }
    atlasAssert_(atlasText_(row[1])===atlasText_(item.place),'source row '+(i+2)+' place changed; manual taxonomy review needed');
    const out=Object.assign({},item);
-   [['kind',2],['author_assessment',3],['editorial_reason',4],['verification',5],['author_relation',11]].forEach(([key,col])=>{
+   atlasAssert_(atlasText_(row[2])===atlasText_(item.kind),'source row '+(i+2)+' original category changed; reclassify public spot manually');
+   [['author_assessment',3],['editorial_reason',4],['verification',5],['author_relation',11]].forEach(([key,col])=>{
      const v=atlasText_(row[col]);
      if(v!==atlasText_(item[key])){
        out[key]=atlasSafePublicField_(v,key+' row '+(i+2));
