@@ -33,3 +33,9 @@ For manual changes, regenerate the public `index.html` with the reviewed source-
 ## Optional safe source update (requires owner activation)
 
 The [Apps Script](automation/Code.gs) and [activation instructions](automation/SETUP.md) implement one-way daily publication of permitted **public summary edits only** for the existing 322 approved experience rows. Private Notion trips, Google Sheet link IDs, internal operational columns and identifiable private visits are excluded. New rows and location changes require editorial review. **Do not mistake code committed to this repository for a live trigger; setup and OAuth remain outstanding.**
+
+## Place-first public directory (2026-10-29)
+
+The site has a map and drill-down browser **country → region/prefecture → municipality/island → named place/route**. The editorial spot-type facet separates lodging, dining, culture, scenery, heritage, routes, districts, shops, transport, hot springs and contextual stories; the original 322 source observations remain unchanged. About 199 records currently classify as individual place candidates, **not 199 verified active establishments or map coordinates**. See [place model, verified locations and outstanding review](docs/PLACE_MODEL.md).
+
+The optional one-way Sheets sync refreshes approved public summaries but now halts on **source category changes**, because these require parallel review of the derived spot taxonomy. The script is staged, not running until the owner completes its credential/trigger setup.
