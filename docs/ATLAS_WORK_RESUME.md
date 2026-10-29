@@ -76,3 +76,28 @@ New candidate triage from no-public-entry articles:
 - **#3/#5/#6/#7**: generic locations, media metaphors, image filenames and recommendations without personal visit must not be promoted as firsthand spots.
 
 The triage is bounded to available analysis summaries, not an independent re-read of every original article. Next: review all 167 high-narrative zero-public articles, plus all 83 prior exclusions, against originals and classify `firsthand / interviewee / planned / cited-only / metaphor / negative-risk`. Do not equate text-length heuristic with missing records.
+
+## 2026-10-30 exclusion-ledger full-pass checkpoint
+
+Read all **83** excluded rows in the private 249-name ledger, and joined the 415 deep-analysis article IDs to the 178 published article IDs. The 83 exclusion dispositions are **68 `근거 있는 제외` and 15 `실질적 중복`**. These are existing editorial decisions, *not* 83 confirmed missing records. No private raw rows or identifiers have been committed.
+
+### Re-review decisions
+
+1. **#421 Mediterranean cruise**: Eight excluded names/compound names are currently flattened under one article. Need port-of-call vs inland excursion vs non-visited comparison distinction. **Napoli appears in the exclusion ledger but is not established as an actual stop** in the prior source review. Mark `itinerary_conflict / source_check`, not visited.
+2. **#584 Fuji lakes**: Four named lakes excluded as duplicates of the umbrella record. They are distinct geographic entities; candidate for searchable child places *without multiplying the original essay observation*. `child_entity_pending`.
+3. **#507 Mogamiya**: Excluded for conditional/negative review. A location explorer should preserve author-critical firsthand experiences with a clear `critical` label, not silently treat exclusions as positive-only editorial quality. `critical_experience_pending`.
+4. **#382 Tōrori historic village / Millyang Geumsidang trail**: Previously excluded due to selection/duplication; verify independent site geometry and firsthand status, do not automatically add.
+5. **#90/#87/#139 North Korea foods, eateries and hot springs**: Prior exclusion for restricted ordinary travel is a valid *accessibility gate*, not proof that locations are fictional. Keep research-only and mark access constraints; no ordinary leisure-booking recommendation.
+6. **#109 island routes**: Distinguish actual visited islands, mentioned islands, and ferry connection edges; no blanket conversion to independent spot records.
+7. **#367/#501 restaurant criticisms**: Preserve negative editorial evidence in the research corpus; publication should show a criticism label if independently adopted, not imply endorsement.
+
+### Quantified source triage
+
+The 237 article IDs with zero public observations were screened by a **heuristic only**: 66 summaries contain explicit 'no concrete POI' language, 68 mention caveats (metaphor/plans/other sources), and 103 need closer assessment. These categories are overlapping conceptually and depend on a simplistic priority rule; they are *not* final classifications. The previous 167 long-place-summary articles form a separate overlapping priority queue. No verified missing-place count can be computed from either heuristic.
+
+### Operational next steps
+
+- Produce a structured, reviewable evidence queue keyed by article ID and candidate place, with relation and confidence; keep sensitive raw material in the private Sheet, not this public repository.
+- Re-read original #114, #421, #584, #507 and sample other source articles to resolve ambiguities; check current official administrative name/municipality before Maps pins.
+- Fix clearly miscategorized published records in a separate, reviewed PR only after checking each source record and taxonomy.
+- PR #1 popup/Maps patch remains staged and browser-tested; do not merge to main without owner approval.
