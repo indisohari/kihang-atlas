@@ -122,7 +122,7 @@ a{color:inherit;text-underline-offset:3px}
 .map-copyright a{white-space:nowrap}
 /* detail layer */
 .backdrop{position:fixed;inset:0;background:#06232c8c;z-index:20}
-.detail{position:fixed;z-index:21;top:0;bottom:0;right:0;background:white;width:min(100%,490px);overflow-y:auto;box-shadow:-12px 0 60px #09232b31;padding:27px clamp(22px,3vw,37px) 45px}
+.detail{position:fixed;z-index:21;left:50%;top:50%;transform:translate(-50%,-50%);background:white;width:min(760px,calc(100vw - 40px));max-height:min(860px,calc(100dvh - 40px));overflow-y:auto;overscroll-behavior:contain;box-shadow:0 24px 75px #09232b46;padding:27px clamp(22px,3vw,37px) 35px;border-radius:12px}
 .detail-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .close{min-height:44px;border:1px solid #d5e0dc;background:#f5f7f6;padding:8px 14px;color:var(--ink);font-size:12px;border-radius:3px}
 .detail .kicker{color:#447774}
@@ -137,6 +137,8 @@ a{color:inherit;text-underline-offset:3px}
 .detail-refs a{padding:11px 13px;border:1px solid #c6d9d3;text-decoration:none;font-size:12px;font-weight:700;border-radius:3px}
 .detail-refs a:first-child{background:var(--navy);color:white;border-color:var(--navy)}
 .detail-refs a:hover{filter:brightness(.95)}
+.detail-refs .map-search-link{background:#f0f5f3;color:#174b4a;border-color:#b8d2cc}
+.detail-map-note{font-size:11px!important;color:#5b7075;line-height:1.55;margin-top:9px}
 .detail-notice{background:#f3f6f4;border-left:3px solid #73928a;padding:13px 15px;color:#4f696b;font-size:12px;line-height:1.7;margin-top:20px}
 @media(max-width:1100px){.studio{grid-template-columns:minmax(300px,345px) minmax(0,1fr)}.map-bottom{grid-template-columns:1fr}.note-panel{border-left:0;border-top:1px solid #e0e8e5;padding:15px 24px}.map-head{padding:20px}.map-copyright{padding:10px 20px}.map-narrative{padding:16px 22px}}
 @media(max-width:780px){
@@ -149,7 +151,7 @@ a{color:inherit;text-underline-offset:3px}
 }
 @media(max-width:530px){
  .brand-sub{font-size:8px}.brand{gap:9px}.toplink{font-size:10px;padding:12px 9px}.map-head h2{font-size:16px}.map-head .kicker{display:none}.map-actions button:first-child{display:none}.map-actions button{min-width:40px}.map-stage,.map-svg{height:272px;min-height:272px}.map-deco.right{display:none}.map-deco.bottom{max-width:80%;font-size:9px}.map-legend{display:none}.region-chips button{padding:8px 9px}.cards{grid-template-columns:1fr}.country-list{grid-template-columns:1fr 1fr}.card-title{font-size:17px}.map-narrative{padding:16px 17px}.note-panel{display:none}
- .detail{width:100%;padding-top:16px}.detail h2{font-size:29px}
+ .detail{width:calc(100vw - 16px);max-height:calc(100dvh - 16px);padding:18px 20px 26px;border-radius:10px}.detail h2{font-size:29px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
@@ -526,17 +528,31 @@ function render(){
 }
 function selectCountry(country,withZoom=true){if(country&&!byCountry[country])return;if(country==='한국'&&state.scope==='world')state.scope='all';if(country&&country!=='한국'&&state.scope==='korea')state.scope='all';state.country=country||null;state.rawRegion='';state.localRegion='';state.localCity='';state.jpMacro='';if(state.country&&state.continent&&continentOf[state.country]!==state.continent)state.continent='';state.page=1;render();if(withZoom){if(state.country)focusCountry(state.country);else setView(mapDefault);} }
 function reset(){state.scope='all';state.country=null;state.kind='';state.spotType='';state.rawRegion='';state.query='';state.continent='';state.theme='';state.season='';state.localRegion='';state.localCity='';state.jpMacro='';state.sort='source';state.page=1;el.search.value='';el.category.value='';setView(mapDefault);render();}
-function openDetail(index){const item=entries[index];if(!item)return;state.lastFocus=document.activeElement;el.backdrop.hidden=false;el.detail.hidden=false;document.body.style.overflow='hidden';$('detailIndex').textContent=`FIELD NOTE / ${String(index+1).padStart(3,'0')}`;$('detailTitle').textContent=item.place;$('detailRegion').textContent=item.region+' · '+item.country;
+function atlasMapSearchUrl(item){
+ // This links to a third-party search, NOT a verified pin or live-venue certification.
+ if(item.record_form!=='spot'||item.article_id==='396')return '';
+ const name=String(item.place||'');
+ if(!name||['호남식당','이화식당'].includes(name)||/[·~→]/.test(name)||name.includes('/'))return '';
+ if(/(?:기행|도시사|문화사|일대|관광권|원문)/.test(name))return '';
+ const geo=item.geo_review||{};
+ if(!['specific_locality','verified_admin'].includes(geo.status))return '';
+ const regions=geo.regions||[],localities=geo.localities||[];
+ if(regions.length!==1||!localities.length||(geo.status!=='verified_admin'&&localities.length!==1))return '';
+ const query=[item.map_search_query||name,...localities,regions[0],item.country].filter(Boolean).join(' ');
+ return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(query);
+}
+function openDetail(index){const item=entries[index];if(!item)return;if(el.detail.hidden)state.lastFocus=document.activeElement;el.backdrop.hidden=false;el.detail.hidden=false;document.body.style.overflow='hidden';$('detailIndex').textContent=`FIELD NOTE / ${String(index+1).padStart(3,'0')}`;$('detailTitle').textContent=item.place;$('detailRegion').textContent=item.region+' · '+item.country;
  const detail=String(item.public_note||'');
  const related=(item.related_record_indices||[]).map(j=>`<button type="button" data-related-index="${j}">${clean(entries[j].place)} · 원문 #${clean(entries[j].article_id)} 보기</button>`).join('');
  const proof=(item.geo_review?.evidence||[]).map(ref=>`<div class="place-evidence"><strong>📍 행정구역 확인</strong><br>${clean(ref.note||'관리기관 안내로 위치 확인')}<br><a target="_blank" rel="noopener noreferrer" href="${clean(ref.url)}">${clean(ref.name)} 원문 근거 ↗</a><br><small>확인일 ${clean(ref.verified_at)} · 운영 여부와 위치 좌표는 별도 검증</small></div>`).join('');
  const activities=Object.entries(activityLabels).filter(([key])=>themeMatch(item,key)).map(([,label])=>label);
  const linkSafe=(url)=>typeof url==='string'&&/^https:\/\//.test(url)?url:'#';
+ const mapSearchUrl=atlasMapSearchUrl(item);
  const reported=(item.source_seasons||[]).length?`<p>원문 표현: ${clean(item.source_seasons.join(' · '))} · 편집상 계절 표현으로 인식, 추천 보증 아님</p>`:'<p>원문 계절 정보: 등록된 표현 없음</p>';
  const supported=(item.verified_seasons||[]).map(t=>`<p><b>${clean(t.season)}</b> ${clean(t.reason)} · <a href="${clean(t.url)}" target="_blank" rel="noopener noreferrer">${clean(t.source_name)}</a> (2026-10-29 근거 확인)</p>`).join('');
  const seasonPanel=`<div class="detail-season"><strong>계절 정보의 근거</strong>${supported||'<p>공식 계절 추천 근거는 이 기록에 등록하지 않았습니다.</p>'}${reported}<small>개별 여행일의 입장·기상·도로·교통은 별도 확인해야 합니다.</small></div>`;
 
- $('detailContent').innerHTML=`${seasonPanel}${proof}${related?`<div class="place-evidence related-records"><strong>같은 장소에 연결된 다른 기행</strong><br>${related}</div>`:``}<hr><h3>이 기록을 읽는 이유</h3><p>${clean(item.editorial_reason)}</p><hr><dl class="detail-meta"><dt>장소 분류</dt><dd>${clean(item.place_type_label)} / ${clean(item.place_form_label)} <small>· 탐색용</small></dd><dt>여행 유형</dt><dd>${clean(item.kind)}</dd><dt>활동 테마</dt><dd>${clean(activities.length?activities.join(" · "):"확인된 탐색 태그 없음")}<small> · 원문 단서 기반</small></dd><dt>저자의 관계</dt><dd>${clean(item.author_relation||'원문 기준 확인 필요')}</dd><dt>원문 평가</dt><dd>${clean(item.author_assessment)}</dd><dt>검증 범위</dt><dd>${clean(item.verification||'현행 정보 미확인')}</dd></dl><div class="detail-notice"><strong>여행 전에 확인할 점</strong><br>${clean(detail||'방문일의 운영·접근·요금 정보를 별도 확인해 주세요.').replace(/\n/g,'<br>')}</div><div class="detail-refs"><a href="${clean(linkSafe(item.article_url))}" target="_blank" rel="noopener noreferrer">브런치 원문 ↗</a></div><p style="color:#698083;font-size:11px;margin-top:23px">출처: 브런치 원문 #${clean(item.article_id)} · 기행 아틀라스 공개 요약(2026.10.29). 원문 저작권은 원 저작자에게 있으며, 부분적인 출처 검토가 원문 전체나 방문일 운영정보의 인증을 뜻하지는 않습니다.</p>`;
+ $('detailContent').innerHTML=`${seasonPanel}${proof}${related?`<div class="place-evidence related-records"><strong>같은 장소에 연결된 다른 기행</strong><br>${related}</div>`:``}<hr><h3>이 기록을 읽는 이유</h3><p>${clean(item.editorial_reason)}</p><hr><dl class="detail-meta"><dt>장소 분류</dt><dd>${clean(item.place_type_label)} / ${clean(item.place_form_label)} <small>· 탐색용</small></dd><dt>여행 유형</dt><dd>${clean(item.kind)}</dd><dt>활동 테마</dt><dd>${clean(activities.length?activities.join(" · "):"확인된 탐색 태그 없음")}<small> · 원문 단서 기반</small></dd><dt>저자의 관계</dt><dd>${clean(item.author_relation||'원문 기준 확인 필요')}</dd><dt>원문 평가</dt><dd>${clean(item.author_assessment)}</dd><dt>검증 범위</dt><dd>${clean(item.verification||'현행 정보 미확인')}</dd></dl><div class="detail-notice"><strong>여행 전에 확인할 점</strong><br>${clean(detail||'방문일의 운영·접근·요금 정보를 별도 확인해 주세요.').replace(/\n/g,'<br>')}</div><div class="detail-refs"><a href="${clean(linkSafe(item.article_url))}" target="_blank" rel="noopener noreferrer">브런치 원문 ↗</a>${mapSearchUrl?`<a class="map-search-link" href="${clean(mapSearchUrl)}" target="_blank" rel="noopener noreferrer">Google 지도에서 검색 ↗</a>`:""}</div>${mapSearchUrl?`<p class="detail-map-note">Google 지도 검색 결과는 정확한 장소나 현재 영업 여부를 보장하지 않습니다.</p>`:""}<p style="color:#698083;font-size:11px;margin-top:23px">출처: 브런치 원문 #${clean(item.article_id)} · 기행 아틀라스 공개 요약(2026.10.29). 원문 저작권은 원 저작자에게 있으며, 부분적인 출처 검토가 원문 전체나 방문일 운영정보의 인증을 뜻하지는 않습니다.</p>`;
  el.detail.focus();}
 function closeDetail(){if(el.detail.hidden)return;el.detail.hidden=true;el.backdrop.hidden=true;document.body.style.overflow='';if(state.lastFocus?.isConnected&&state.lastFocus.focus)state.lastFocus.focus();}
 $('moreCountries').addEventListener('click',()=>{state.countryExpanded=!state.countryExpanded;updateCountryButtons();});
