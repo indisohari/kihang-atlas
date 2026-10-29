@@ -37,3 +37,29 @@
 
 - No personal/Notion trips, private Sheet URLs, private source evidence paths, credentials, precise unverified map pins, newly asserted visits, booking availability or claims of current opening in public HTML.
 - No direct `main` modifications or merging. A draft PR is staging, not deployment.
+
+## 2026-10-30 follow-on audit tranche — source-first review
+
+The current PR #1 remains open/draft; main is still `0f165d42`. Do not duplicate the completed popup/Maps patch. The original 322 entries are untouched.
+
+### Prioritized editorial decisions (not publication authorization)
+
+| Article | Candidate / scope | Current decision | Next evidence needed |
+| --- | --- | --- | --- |
+| #114 | 백촌막국수 (Goseong) | `missing / firsthand / high` | Exact official venue name, Goseong administrative locality, source quote and current identity |
+| #114 | 실로암메밀국수 (Yangyang) | `missing / firsthand-past / high` | Name, Yangyang locality, distinguish historical visit from current recommendation |
+| #114 | 평창 이조막국수 | `existing` | Do not duplicate; retain source linkage |
+| #421 | Mediterranean cruise itinerary | `journey / partially represented` | Distinguish actual ports from sightseeing destinations, verify port-city and excursion city separately; link existing Florence/Rome/Venice records |
+| #256 | Four Kiso walking routes | `existing / complete-for-identified-four` | No new entries without further source evidence |
+| #584 | Four Fuji lakes inside a combined area record | `child-place modeling candidate` | Check four names and individual source support before splitting |
+| #2 | Georgian churches and fortress | `candidate / source recheck` | Exact proper nouns and which sites the author visited |
+| #382 | Heritage site(s) around Miryang | `candidate / source recheck` | Avoid duplicating existing 월연정 |
+| #507 | 모가미야 stay | `existing-or-missing / negative experience` | Verify historical visit, source tone and current property identity; no endorsement inferred |
+
+### Coverage audit methodology
+
+The 249-name review ledger and the 415-essay deep-analysis corpus must be joined by **article ID + normalized candidate name + relation**, not by name alone. A zero-public-entry article is not automatically a miss. Review the 83 previous exclusions separately from names never extracted. For each candidate record: `article_id`, `name_as_written`, `city_or_admin`, `source_evidence`, `author_relation`, `record_form`, `existing_public_record_id`, `status`, `confidence`, `reason`, `reviewed_at`. Treat multiple cruise stops as one journey with linked ports, not duplicated experiences.
+
+### Stop conditions
+
+No private sheet export to this public repo, no new publication row or precise map pin until original-article and provider/administrative evidence are checked. Do not interpret older author visits as operating-status verification. Keep ambiguous names unpinned.
