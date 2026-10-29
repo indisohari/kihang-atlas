@@ -1,0 +1,39 @@
+# Kihang Atlas — Resume ledger
+
+**Updated:** 2026-10-30 KST  
+**Work branch:** `work/atlas-coverage-popup-20261030`  
+**Main baseline:** `0f165d42fe36c38532ca9e3847c3b13f2349878b`  
+**Public service:** https://indisohari.github.io/kihang-atlas/ (tracks `main` only)  
+**Status:** IN PROGRESS. Working-branch evidence, tests and proposed UI changes are not a live deployment.
+
+## Resume contract for any next session
+
+1. Check latest `main` SHA, open GitHub PRs and this work branch. Prefer the open PR that includes this file; do not repeat already committed work.
+2. Read `README.md`, `docs/PLACE_MODEL.md`, `docs/CONTENT_CLASSIFICATION.md`, `automation/SETUP.md`, this ledger, and the current PR diff. Re-read the private canonical Google Sheet and original articles only when needed for a specific evidence claim; do not copy private source URLs/IDs into this public repo.
+3. Keep the approved published baseline `322` observations / `178` essay URLs and the protected anonymous Mongolian ranch record unchanged until an explicitly reviewed publication expansion. The website is a derived public projection, not the private source of truth.
+4. Work only on the branch/PR with current file SHAs. Do not merge to `main`, publish private trip records, change permissions or activate Google Apps Script without separate confirmation.
+5. Distinguish **code staged**, **tests run**, **merged**, **Pages deployed**, **browser verified**, **source checked**, and **operator currently open**. Never infer one from another.
+
+## Verified baseline and audit findings
+
+- 415 source essays were deep-analyzed in the private source; 322 published experience records derive from 178 of them. The other 237 articles are **not automatically omissions**.
+- An earlier named-place review ledger has 249 entries: 166 marked included and 83 excluded (68 reasoned exclusions, 15 functional duplicates). This is a different unit from the 322 published observations.
+- Essay [#114](https://brunch.co.kr/@gosisain/114) mentions first-hand **백촌막국수** (Goseong) and **실로암메밀국수** (Yangyang). Neither appears among current public records or the earlier 249-place review list; **평창 이조막국수** is already present. New records require article-level evidence and operator/location checks.
+- Essay [#421](https://brunch.co.kr/@gosisain/421) describes a Mediterranean cruise with 10 named itinerary places; 3 appear as separate site records. Model remaining ports as linked journey stops rather than duplicating one source essay seven times; do not infer Naples as a visited stop.
+- Essay [#256](https://brunch.co.kr/@gosisain/256) has four Kiso walking entries already represented: **no re-extraction needed**.
+- Essay [#584](https://brunch.co.kr/@gosisain/584) has four distinct Fuji lakes inside one area record; distinguish child entities from source observations.
+- Inspect suspicious existing category tags before editing: `토카이 닭 파프리카시·지역 와인` (transport), `아바나 음악인 묘역` (transport), `김이수 묘역` (transport), `리스본 생선구이` (nature), `해밀턴호텔 뒤 골목` (stay), `남도 항구·무진기행 문학루트` (spot/transport).
+- Two similarly named restaurants `이화식당` / `호남식당` remain ambiguous; no automatic venue pin or exact-place Maps action.
+
+## Work queue
+
+1. **P0 UI:** Replace the right-side full-height detail drawer with an accessible centered responsive modal, preserve existing article detail and focus handling; add a Google Maps **search** action only when editorial geography is sufficiently distinct. Map search is not verified coordinates or proof of an operating business.
+2. **P0 code QA:** Compare Git blob SHAs, preserve the exact 322 embedded observations and all 178 essay URLs, search public HTML for private URLs/credentials; run syntax and browser checks at 320/390/768/1365 px, keyboard Escape/Tab, duplicates/related essays, filters, and source links.
+3. **P1 coverage:** Re-evaluate all 415 article analysis rows and the 249-name ledger, tracking `existing`, `missing`, `excluded`, `same-place-different-essay`, `mentioned-only`, `reported`, `critical`, `planned`, `restricted` states. Promote nothing from heuristics alone.
+4. **P1 priority evidence:** First-hand Baekchon/Siloam (#114), cruise stops (#421), extra place links (#2), heritage facilities (#382), nuance of the older Mogamiya stay (#507).
+5. **P2 publication pipeline:** The existing `automation/Code.gs` is staged and supports only edits to 322 previously approved rows/summary fields. Do not treat it as an approved insertion/classification sync.
+
+## Non-goals and protection
+
+- No personal/Notion trips, private Sheet URLs, private source evidence paths, credentials, precise unverified map pins, newly asserted visits, booking availability or claims of current opening in public HTML.
+- No direct `main` modifications or merging. A draft PR is staging, not deployment.
