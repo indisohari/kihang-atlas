@@ -19,3 +19,8 @@ This file records **article-supported historical claims**, not current business 
 | #2 | 루체른 빈사의 사자상 | Switzerland | Comparative historical reference, no personal visit asserted | Mention-only |
 
 **Key rule:** Article text can prove a historical author claim, but cannot prove that a restaurant is still open or that a Google Maps result identifies the same business. Preserve criticism, access constraints, and planned/not-visited qualifiers.
+
+## Additional original-source checks
+
+- [#584](https://brunch.co.kr/@gosisain/584): Four Fuji-facing lakes explicitly named **모토스호, 쇼지호, 사이호, 가와구치호** and labeled **야마나시현** in the article. Author says they searched several Fuji viewpoints while traveling for ryokan, but does not unambiguously attest standing at each of the four lake shores. Treat as **four mentioned/recommended child places**, not four separately proven firsthand visits. Other original claims: walked at Onuma; stayed at Marukoma Ryokan by Shikotsu Lake; **did not** visit an additional secluded hot spring; stayed near Yunoko and Chuzenji lakes. The article labels Yunoko/Chuzenji as Gunma; this regional assertion requires independent administrative correction before mapping, rather than copying it as verified geography.
+- [#507](https://brunch.co.kr/@gosisain/507): Author explicitly says four ryokans were **used** on the snow-country trip: 추르야, 이시라쿠, 나루코, **모가미야**. Mogamiya is a **firsthand stay**, not an unvisited recommendation. Original source calls the group a worthwhile hot-spring comparison; do not assert that Mogamiya was wholly negatively reviewed without checking the full article context.
