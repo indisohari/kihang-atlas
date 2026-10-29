@@ -63,3 +63,16 @@ The 249-name review ledger and the 415-essay deep-analysis corpus must be joined
 ### Stop conditions
 
 No private sheet export to this public repo, no new publication row or precise map pin until original-article and provider/administrative evidence are checked. Do not interpret older author visits as operating-status verification. Keep ambiguous names unpinned.
+
+## Source-join tranche 2026-10-30 (read-only canonical Sheet)
+
+Exact tabs re-read: `12_글별_심층분석` (415 article rows), `09_세부장소_실명` (249 named candidates), `13_개인여행_참고` (322 published observations). Public observation IDs cover **178 distinct article IDs**, leaving **237 article IDs with no published observation**. Among those, **167** have an extended place/evidence narrative (more than 80 characters), which is a *review queue*, **not** 167 proven omissions.
+
+New candidate triage from no-public-entry articles:
+- **#4**: 보성 장도, 진도 관매도, 철원 한탄강 얼음 트레킹 — article mentions author participation/companionship; re-check whether each is firsthand, context, or an interviewee's work before promotion.
+- **#8**: Langtang, Kyanjin Gompa and glacier trail; **Tserko Ri explicitly not summited**, so do not mark it visited. Accident/evacuation framing must not be turned into an unqualified recommendation.
+- **#16**: 남원 동편제마을 휴락, 안동 소목화당, 나주 목서원 are performance/production references, while 경주 도봉서당 is **planned**. Distinguish production work from tourism and planned from visited.
+- **#2**: Mtskheta Svetitskhoveli, Gergeti Trinity, Sighnaghi fortress appear in the analysis; exact author-visit claims and municipal geography require article evidence. Lucerne Lion Monument is comparative and author visit is unconfirmed.
+- **#3/#5/#6/#7**: generic locations, media metaphors, image filenames and recommendations without personal visit must not be promoted as firsthand spots.
+
+The triage is bounded to available analysis summaries, not an independent re-read of every original article. Next: review all 167 high-narrative zero-public articles, plus all 83 prior exclusions, against originals and classify `firsthand / interviewee / planned / cited-only / metaphor / negative-risk`. Do not equate text-length heuristic with missing records.
