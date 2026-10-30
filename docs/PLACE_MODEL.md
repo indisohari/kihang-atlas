@@ -1,10 +1,10 @@
 # Kihang Atlas — place-first architecture (2026-10-29)
 
-## 2026-10-30 draft expansion — complete source snapshot, not live
+## 2026-10-31 published expansion — complete source snapshot
 
-Draft PR #2 (stacked on Draft PR #1) promotes only #29 The Empire Brunei (historical first-hand resort stay) and #67 LEGOLAND Malaysia (father/son theme-park visit) into the public-derived source **for editorial review**. The base 322 source objects and historical/source-geography qualifications remain unchanged. The staged total is **324 parent observations / 180 essay URLs, 51 country/combined labels, Korea 141 / outside Korea 183**.
+Merged PR #2 (following merged PR #1) published only #29 The Empire Brunei (historical first-hand resort stay) and #67 LEGOLAND Malaysia (father/son theme-park visit) in the public-derived source. PR #2 preserved the 322 source objects from the PR #1 baseline. PR #1 itself had added operational-status metadata and made five reviewed place-type corrections without replacing legacy source identities or essay links. The deployed total is **324 parent observations / 180 essay URLs, 51 country/combined labels, Korea 141 / outside Korea 183**.
 
-The full staged 324-record source was counted independently of the older taxonomy snapshot retained below:
+The published 324-record source was counted independently of the older 322-record taxonomy snapshot retained below:
 
 | Current `record_form` | Staged records |
 | --- | ---: |
@@ -15,7 +15,7 @@ The full staged 324-record source was counted independently of the older taxonom
 | `event` | 5 |
 | **Total** | **324** |
 
-Brunei's existing *country polygon* is now selectable and has a polygon-derived viewport center; **no venue coordinate/pin** is represented. Hotel and theme-park official pages confirm **administrative locations only**, while prices, operator conditions, opening, cleanliness, pest risks and travel-day transit are unverified. Earlier 322/178/199 statements below are preserved as historic descriptions of the previously documented baseline, not the current draft data. See [release gates](ATLAS_324_STAGED_RELEASE.md).
+Brunei's existing *country polygon* is now selectable and has a polygon-derived viewport center; **no venue coordinate/pin** is represented. Hotel and theme-park official pages confirm **administrative locations only**, while prices, operator conditions, opening, cleanliness, pest risks and travel-day transit are unverified. Earlier 322/178/199 statements below are preserved as historic descriptions of the previously documented baseline, not the current published data. See [release gates](ATLAS_324_STAGED_RELEASE.md).
 
 ## Public product definition
 
