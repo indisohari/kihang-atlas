@@ -1,0 +1,36 @@
+name: Atlas source and browser verification
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out public repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run 19 source and synchronization mock checks
+        run: node tests/atlas_release.test.cjs
+
+      - name: Install pinned browser test driver (no project dependencies)
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund playwright@1.56.1
+
+      - name: Install headless Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run source-backed responsive, map, filter and modal checks
+        run: node tests/atlas_browser_smoke.cjs

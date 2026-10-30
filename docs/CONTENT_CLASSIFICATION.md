@@ -1,10 +1,10 @@
 # Kihang Atlas — classification audit (2026-10-29)
 
-## 2026-10-30 draft expansion — updated source counts
+## 2026-10-31 published source — updated counts
 
-The main-site historical baseline is **322 observations / 178 essay URLs**, while Draft PR #2 stages **324 / 180** after the owner's approval of two article-level records. The original 322 source objects are unchanged. The complete staged production JSON was enumerated as follows:
+The previous main-site baseline was **322 observations / 178 essay URLs**. Owner-approved PR #1 and PR #2 have now merged, publishing **324 / 180**. PR #2 preserved all 322 source objects from PR #1, while PR #1 added operational-status qualification fields and five reviewed place-type adjustments. The published JSON was enumerated as follows:
 
-| Original editorial kind | Staged total |
+| Original editorial kind | Published total |
 | --- | ---: |
 | 자연·걷기 | 116 |
 | 역사·문화 | 67 |
@@ -13,7 +13,7 @@ The main-site historical baseline is **322 observations / 178 essay URLs**, whil
 | 숙박·온천 | 25 |
 | **Total** | **324** |
 
-Of these, Korea remains at 141 and other countries increase to 183. Country/combined labels increase to 51 (Brunei +1; Malaysia from 2 to 3). No verified seasonality was added for #29 or #67. Below, 322/178 and prior place-form counts describe older editorial snapshots; the current staged form totals are in [PLACE_MODEL.md](PLACE_MODEL.md). This remains a **draft, unmerged, un-deployed** projection.
+Of these, Korea remains at 141 and other countries increase to 183. Country/combined labels increase to 51 (Brunei +1; Malaysia from 2 to 3). No verified seasonality was added for #29 or #67. Below, 322/178 and prior place-form counts describe historical editorial snapshots; current published form totals are in [PLACE_MODEL.md](PLACE_MODEL.md). The 324/180 publication was verified from the live Pages HTML on 2026-10-31.
 
 The public source collection contains **322 parent experiences** linked to **178 distinct original Brunch essays**. No personal Notion trip records are included.
 
