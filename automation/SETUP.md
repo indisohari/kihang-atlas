@@ -1,5 +1,9 @@
 # Kihang Atlas — Activate one-way public summary synchronization
 
+## 2026-10-30 release hold for newly approved records
+
+**Do not activate this automation against Draft PR #2's 324-record source.** The canonical personal Sheet now contains two approved additional records (#29 and #67), while the script below remains explicitly constrained to **the original first 322 rows** and the previous main-branch publication model. The historical `previewAtlasSync` example with `pendingNewRows:0` no longer reflects the current source: with unchanged original rows, the two appended rows should remain **pending**, not silently published. No live Apps Script account, token, OAuth grant, trigger or job is configured or verified in this change. A separate code and rollback review is required before any post-324 activation. The prior setup steps below are preserved solely as historical pre-expansion instructions and must not be executed verbatim for the 324 publication.
+
 **Current status: Script published and locally simulated. NOT connected to the owner's Google Apps Script account, and no live daily trigger has been installed.**
 
 This is a private Google Sheet → public GitHub Pages *projection*, not a public link to the private Sheet.
