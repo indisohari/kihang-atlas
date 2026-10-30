@@ -1,47 +1,45 @@
 # 기행 아틀라스 — 공개 웹판
 
-## 2026-10-30 source-faithful expansion (Draft PR #2 — not live)
+Static, source-linked place and experience atlas of public [Brunch](https://brunch.co.kr/@gosisain) travel writing. This is a **derived public discovery site**, never the personal Google Sheet's complete raw data or a live booking/venue directory.
 
-The production **`main` website still shows the previous 322 parent observations / 178 essay URLs**. The staged full-schema branch adds two owner-approved first-person source records (#29 The Empire Brunei and #67 LEGOLAND Malaysia), reaching **324 parent observations / 180 original essay URLs** (Korea 141, abroad 183; 51 country or combined-country labels). The existing 322 full source objects are unchanged; the Brunei country outline and Asia filter are included in the draft only. See [release review](docs/ATLAS_324_STAGED_RELEASE.md).
+## Release and provenance
 
-The earlier 322/178 numbers and “199 spot candidates” below describe the **older editorial/documentation snapshot**; the staged 324 record types have been recounted as **197 spots, 49 areas, 40 experiences, 33 routes and 5 events**. This is a difference in recorded taxonomy, not a claim that a spot is independently verified or currently operating. Neither Draft PR #1 nor #2 has been merged. The optional Apps Script has been updated to **validate 324 reviewed public rows**, while automatically proposing changes for the **original 322 descriptions only**, in a **separate Draft PR** (never directly to `main`). Its **19 offline mock/regression tests passed**, but no bound account, GitHub PAT, OAuth grant or trigger is configured. Keep it inactive pending separate owner activation. See [current setup](automation/SETUP.md) and run `node tests/atlas_release.test.cjs`.
+**2026-10-30 verified staging checkpoint:**
 
-A static, source-linked thematic travel atlas of 322 experiences from 178 public Brunch essays. This is the public-facing **discovery layer**; the personal travel archive and the private canonical Google Sheet remain separate.
+| Target | Source observations | Distinct original essay URLs | Status |
+| --- | ---: | ---: | --- |
+| GitHub Pages / `main` at checkpoint | 322 | 178 | Previously published |
+| [Draft PR #1](https://github.com/indisohari/kihang-atlas/pull/1) | 322 | 178 | Accessible centered modal and cautious Google Maps text search |
+| [Draft PR #2](https://github.com/indisohari/kihang-atlas/pull/2), stacked on #1 | **324** | **180** | Adds two owner-approved original visit records and release checks; not merged at this checkpoint |
 
-## Publishing with GitHub Pages
+The intended next public version is **324 records**: Korea 141 / other countries 183, covering 51 country-or-combined-region labels. It adds **#29 The Empire Brunei** (historical 2007 resort stay) and **#67 LEGOLAND Malaysia** (author and son actually visited). The prior 322 source observations and their links remain unchanged. The two additions are **not** current accommodation/transport/attraction availability certifications.
 
-1. Create a dedicated **public** repository named `kihang-atlas` under the intended GitHub account.
-2. Upload `index.html` and `.nojekyll` to the root of the default `main` branch.
-3. In repository **Settings → Pages**, choose **Deploy from a branch** and **main → /(root)**, then Save.
-4. Verify `https://<owner>.github.io/kihang-atlas/` in a browser, including mobile layouts, search, filters, and original Brunch article links.
+The source field `author_relation` describes **the essay author's** reported visit, not the atlas owner's experience. Map shading is **country coverage only**, not an actual visited GPS point. Brunei's country outline is now selectable on the staged 324 site; no individual venue coordinates were added.
 
-No package install, external mapping service, fonts, or API key is required for browsing. The current site is static. An optional bound Google Apps Script can refresh already approved public summary fields; it needs a one-time owner-side setup and is not yet active.
+## Where to browse
 
-## Content/provenance limits
+- Published site: https://indisohari.github.io/kihang-atlas/
+- Working review: [PR #1](https://github.com/indisohari/kihang-atlas/pull/1) → [PR #2](https://github.com/indisohari/kihang-atlas/pull/2).
+- [Place entity model and geographic review](docs/PLACE_MODEL.md); [type/season classification](docs/CONTENT_CLASSIFICATION.md).
+- [324-source release gates and provenance](docs/ATLAS_324_STAGED_RELEASE.md); [original audit/resumption ledger](docs/ATLAS_WORK_RESUME.md).
 
-- Counts: 322 curated parent experiences (Korea 141, international 181), mapped to 178 distinct public Brunch article URLs.
-- Country-level distribution and regional tags are a navigation aid, **not** geocoded point locations, actual visited GPS tracks, or public entry permission.
-- Activities are editorial classifications; season labels differentiate officially supported source seasonality from mentions in an essay.
-- Summary and original author relation are source-backed editorial records, not independent certification of every claim or current operator status.
-- The site embeds **no personal Notion travel records**, private Notion URLs, or private Google Sheet links. Internal case/evidence sheet references and private notes are stripped.
-- Essays and other external content remain the copyright of their original rights holders; clicking **브런치 원문** takes readers to the source. Do not redistribute the original full essays.
-- Public static hosting means anyone can view all data in the public HTML source. Never insert private itinerary details or credentials into this repository.
+The public website consists of `index.html` and a static map. No API key, application server or npm install is required to **browse** it. Public original article links point to the copyright holder's work; essays are not republished in full.
 
-## Updating the data
+## Search and interaction
 
-For manual changes, regenerate the public `index.html` with the reviewed source-to-public transform, then re-run privacy and browser tests. Do **not** publish the private v4 HTML or raw Notion/Google exports.
-## Improvements delivered on 2026-10-29
+Country → region → locality → named place/route exploration; original thematic categories, conservative place types, activities, seasonal evidence, keyword search, sorting and reset. Individual sources remain accessible even when they refer to a duplicated geographic place (for example, two `연홍도` essays).
 
-- Quick themes (walking, cruise/water, railway, onsen), keyword token search, country facets with contextual counts, sorting and reset.
-- Editorial correction: a Hawaii jazz venue is no longer tagged as a cruise/water experience solely from the wider trip context; railway is labelled as 'rail and railway stories' rather than guaranteed train rides.
-- Explicit activity tags in each source detail. See [classification audit](docs/CONTENT_CLASSIFICATION.md) for coverage and open uncertainties.
+The centered source detail dialog supports keyboard focus and Escape, with original Brunch and official administrative references when present. Google Maps **text search links** are offered only for sufficiently specific, publicly usable locations. They are **not verified pins, operating status or current public access**. The protected anonymous Mongolian ranch and ambiguous venue names do not receive a Maps search action.
 
-## Optional safe source update (requires owner activation)
+## QA and publishing
 
-The [Apps Script](automation/Code.gs) and [activation instructions](automation/SETUP.md) implement one-way daily publication of permitted **public summary edits only** for the existing 322 approved experience rows. Private Notion trips, Google Sheet link IDs, internal operational columns and identifiable private visits are excluded. New rows and location changes require editorial review. **Do not mistake code committed to this repository for a live trigger; setup and OAuth remain outstanding.**
+- Deterministic offline source and Apps Script mock checks: `node tests/atlas_release.test.cjs` (Node built-ins only). **19 / 19 passed at the staging checkpoint.** These use synthetic fixtures derived from the **public 324 JSON**; the private Sheet's I/J/K data never enters the repo.
+- The exact full GitHub 324 HTML underwent real browser tests at **320/390/768/1365 px**: no page JavaScript errors or horizontal overflow. Search, combined filtering, Brunei country click and keyboard Enter, empty/reset states, two additions' official and source links, duplicate source linkage, modal keyboard focus/Escape and sensitive Maps restrictions passed. This is **staged-source QA**, not a claim of Pages deployment.
+- **Publication remains a separate owner-only action.** Preserve the branch/PR writer ownership. Review and merge **PR #1 to main first**, then reconcile PR #2's base to the updated `main` and merge only after final-revision review. Verify the real Pages deployment and the delivered 324/180 page in a separate browser check. Do not commit directly to main.
+- Never publish private personal Google Sheet links or raw exported columns, Notion trip data, sensitive identities/places, unknown exact map coordinates, original essays, booking status or credentials. Any new places or source-category changes need separate editorial evidence.
 
-## Place-first public directory (2026-10-29)
+## Optional source-summary proposals — deliberately inactive
 
-The site has a map and drill-down browser **country → region/prefecture → municipality/island → named place/route**. The editorial spot-type facet separates lodging, dining, culture, scenery, heritage, routes, districts, shops, transport, hot springs and contextual stories; the original 322 source observations remain unchanged. About 199 records currently classify as individual place candidates, **not 199 verified active establishments or map coordinates**. See [place model, verified locations and outstanding review](docs/PLACE_MODEL.md).
+[`automation/Code.gs`](automation/Code.gs) is a **draft-PR-only** optional workflow, **not** direct GitHub Pages publication. It validates all **324** reviewed public rows, proposes changes to source columns **D–F, L of the first 322 only**, and preserves the two newly added records for manual editorial review. New source rows, categories, identities and locations cannot be self-approved.
 
-The optional one-way Sheets sync refreshes approved public summaries but now halts on **source category changes**, because these require parallel review of the derived spot taxonomy. The script is staged, not running until the owner completes its credential/trigger setup.
+The script now stages only on a separate review branch and a **public Draft PR** after explicit manual authorization; it cannot merge or write to `main`. Its mocks passed, but Google Apps Script OAuth, personal source binding, fine-grained PAT, a live test and a daily trigger have **not** been configured or verified. Activation needs a **separate, deliberate approval and permissions decision**. See the [safe optional setup](automation/SETUP.md). The static public website operates without it.
