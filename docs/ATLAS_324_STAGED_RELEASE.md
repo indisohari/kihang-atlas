@@ -27,7 +27,7 @@ Both records are *author* observations, not the atlas owner's personal visit. Al
 
 - [x] **Real full-file browser regression (targeted)** using this branch's exact `index.html` downloaded directly by a browser at 324 records / 180 source links: 320/390/768/1365 px no horizontal overflow or JS page errors; Brunei SVG click updates breadcrumb and yields 1 record; searches find #29 and #67 and open official evidence + original essays; Escape closes modal and restores card focus; protected Mongolian ranch and ambiguous `호남식당` show no map-search action; two `연홍도` observations show related essay linkage; `stay`=21 and source lodging kind=25. Country/region/facet **exhaustive combinations** and full external URL availability were not tested.
 - [x] **Documentation alignment (draft scope):** README, place model and classification audit now distinguish published 322/178 baseline from staged 324/180. Pre-release editorial copy can be reviewed before publication.
-- [ ] **Automation review:** `automation/Code.gs` and `automation/SETUP.md` were originally designed to sync only the first 322 approved rows. Their safety assumptions must be reviewed against 324 parent records **before owner-side activation**. No trigger, token or credential has been activated.
+- [x] **Automation source review and offline mocks:** `automation/Code.gs` validates 324 reviewed public records and an explicit #29 name alias, while restricting proposed text refresh to the original 322 rows. It now creates **only a Draft PR on a separate review branch** (never commits directly to `main`). All 19 offline regression/mock tests passed with synthetic public-only fixtures. `automation/SETUP.md` explicitly separates owner-only PAT/OAuth/trigger authorization. **Real bound Apps Script + token staging integration remains unverified and inactive.**
 - [ ] **Stack integration and owner-approved release:** PR #1 contains the accessible modal/Maps search baseline. Review and integrate this staged addition without overwriting another writer, then obtain separate authorization for merge to `main`/GitHub Pages deployment. Confirm the actual deployed page and runtime after publishing.
 
 Not included in this change: 38 unapproved child-place suggestions, precise map pins, current venue opening claims, and unresolved historic venue identities.
@@ -44,3 +44,11 @@ Not included in this change: 38 unapproved child-place suggestions, precise map 
 - Escape closes the detail dialog and returns focus to its trigger card. No new external services or browser write actions activated.
 
 **Still open:** broad exhaustive cross-filter combinations, offline pristine reproducibility (no local complete HTML bytes were exported in this pass), prior launch documentation/Apps Script activation gate, final PR stacking/merge and GitHub Pages runtime verification. **Do not confuse test pass with deployment.**
+
+## 2026-10-30 optional review-only synchronization compatibility
+
+- The current canonical Google Sheet contains exactly 324 published source rows and 180 distinct public Brunch source IDs; a row-by-row comparison of all 324 public records found only the expected reviewed #29 old-name display alias difference in identity fields.
+- `previewAtlasSync()` now fails closed against the older live 322 website, which is intended until the owner-approved 324 release is deployed.
+- Proposed changes from original 322 public summaries are **never written directly to `main`**; optional explicitly enabled action creates a **public Draft PR** on `work/atlas-summary-review`, or stops when the branch/PR is already pending. Two new source records remain manually reviewed for future changes.
+- The test file `tests/atlas_release.test.cjs` passed **19 of 19** tests in a clean temporary Node runtime using complete raw GitHub `index.html` and `automation/Code.gs`. No real GitHub writes, Google authorization, or scheduled jobs were performed.
+- The optional integration is **not a blocker for publishing the static website**. Recurring data transfer, new PR permissions and installation remain separate owner-only decisions.
