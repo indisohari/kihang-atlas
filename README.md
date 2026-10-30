@@ -1,5 +1,11 @@
 # 기행 아틀라스 — 공개 웹판
 
+## 2026-10-30 source-faithful expansion (Draft PR #2 — not live)
+
+The production **`main` website still shows the previous 322 parent observations / 178 essay URLs**. The staged full-schema branch adds two owner-approved first-person source records (#29 The Empire Brunei and #67 LEGOLAND Malaysia), reaching **324 parent observations / 180 original essay URLs** (Korea 141, abroad 183; 51 country or combined-country labels). The existing 322 full source objects are unchanged; the Brunei country outline and Asia filter are included in the draft only. See [release review](docs/ATLAS_324_STAGED_RELEASE.md).
+
+The earlier 322/178 numbers and “199 spot candidates” below describe the **older editorial/documentation snapshot**; the staged 324 record types have been recounted as **197 spots, 49 areas, 40 experiences, 33 routes and 5 events**. This is a difference in recorded taxonomy, not a claim that a spot is independently verified or currently operating. Neither Draft PR #1 nor #2 has been merged. The existing 322-row Apps Script automation is **not approved or validated for the added rows**; keep it inactive pending a separate code/security review and owner activation.
+
 A static, source-linked thematic travel atlas of 322 experiences from 178 public Brunch essays. This is the public-facing **discovery layer**; the personal travel archive and the private canonical Google Sheet remain separate.
 
 ## Publishing with GitHub Pages
