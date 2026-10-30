@@ -25,9 +25,22 @@ Both records are *author* observations, not the atlas owner's personal visit. Al
 
 ## Must pass before public release
 
-- [ ] **Real full-file browser regression** using this branch's exact `index.html`: 320/390/768/1365 px, keyboard modal Escape/focus, all country/region/facet filters, Brunei SVG selection, maps-search restrictions, original essay links, and duplicate `연홍도` evidence links. Source-level checks are **not** a substitute for this.
-- [ ] **Documentation alignment:** public README, place model and classification audit still document the original 322/178 publication baseline. Update as part of final release, retaining the historical baseline.
+- [x] **Real full-file browser regression (targeted)** using this branch's exact `index.html` downloaded directly by a browser at 324 records / 180 source links: 320/390/768/1365 px no horizontal overflow or JS page errors; Brunei SVG click updates breadcrumb and yields 1 record; searches find #29 and #67 and open official evidence + original essays; Escape closes modal and restores card focus; protected Mongolian ranch and ambiguous `호남식당` show no map-search action; two `연홍도` observations show related essay linkage; `stay`=21 and source lodging kind=25. Country/region/facet **exhaustive combinations** and full external URL availability were not tested.
+- [x] **Documentation alignment (draft scope):** README, place model and classification audit now distinguish published 322/178 baseline from staged 324/180. Pre-release editorial copy can be reviewed before publication.
 - [ ] **Automation review:** `automation/Code.gs` and `automation/SETUP.md` were originally designed to sync only the first 322 approved rows. Their safety assumptions must be reviewed against 324 parent records **before owner-side activation**. No trigger, token or credential has been activated.
 - [ ] **Stack integration and owner-approved release:** PR #1 contains the accessible modal/Maps search baseline. Review and integrate this staged addition without overwriting another writer, then obtain separate authorization for merge to `main`/GitHub Pages deployment. Confirm the actual deployed page and runtime after publishing.
 
 Not included in this change: 38 unapproved child-place suggestions, precise map pins, current venue opening claims, and unresolved historic venue identities.
+
+## 2026-10-30 real full-file remote browser QA — PASS (targeted)
+
+- Browser downloaded **the exact GitHub Draft PR #2 `index.html`** from raw.githubusercontent.com: HTTP 200; 442,386 characters; parsed 324 complete source observations and 180 distinct public Brunch URLs. This is **not** the earlier seven-field local preview.
+- Playwright-driven check: viewport widths **320, 390, 768 and 1365**, no JavaScript page errors and no horizontal document overflow.
+- Search `The Empire Brunei` → 1 result; original Brunch #29; hotel official contact; cautious Google Maps **text search**, not a verified pin.
+- Search `LEGOLAND` → 1 result; original Brunch #67; official operator directions; cautious Maps text search.
+- Brunei SVG country click → 1 result, breadcrumb and country heading updated. `stay` place-type filter → 21 records; original `숙박·온천` kind → 25 records.
+- Search `몽골 초원의 사적 목장 방문` → 1 anonymized record and **no Maps search**; ambiguous `호남식당` → **no Maps search**.
+- Search `연홍도` → 2 distinct source records; detail #283 links to #109, not merged or discarded.
+- Escape closes the detail dialog and returns focus to its trigger card. No new external services or browser write actions activated.
+
+**Still open:** broad exhaustive cross-filter combinations, offline pristine reproducibility (no local complete HTML bytes were exported in this pass), prior launch documentation/Apps Script activation gate, final PR stacking/merge and GitHub Pages runtime verification. **Do not confuse test pass with deployment.**
