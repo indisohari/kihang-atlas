@@ -1,5 +1,20 @@
 # Kihang Atlas — classification audit (2026-10-29)
 
+## 2026-10-30 draft expansion — updated source counts
+
+The main-site historical baseline is **322 observations / 178 essay URLs**, while Draft PR #2 stages **324 / 180** after the owner's approval of two article-level records. The original 322 source objects are unchanged. The complete staged production JSON was enumerated as follows:
+
+| Original editorial kind | Staged total |
+| --- | ---: |
+| 자연·걷기 | 116 |
+| 역사·문화 | 67 |
+| 음식·주류 | 65 |
+| 도시·생활 | 51 |
+| 숙박·온천 | 25 |
+| **Total** | **324** |
+
+Of these, Korea remains at 141 and other countries increase to 183. Country/combined labels increase to 51 (Brunei +1; Malaysia from 2 to 3). No verified seasonality was added for #29 or #67. Below, 322/178 and prior place-form counts describe older editorial snapshots; the current staged form totals are in [PLACE_MODEL.md](PLACE_MODEL.md). This remains a **draft, unmerged, un-deployed** projection.
+
 The public source collection contains **322 parent experiences** linked to **178 distinct original Brunch essays**. No personal Notion trip records are included.
 
 ## One source-defined category per record

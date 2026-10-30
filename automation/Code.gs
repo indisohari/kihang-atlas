@@ -6,7 +6,8 @@
  */
 const ATLAS_SYNC = Object.freeze({
   repo:'indisohari/kihang-atlas',path:'index.html',branch:'main',
-  sourceTab:'13_개인여행_참고',approvedCount:322,
+  sourceTab:'13_개인여행_참고',approvedCount:324,autoRefreshCount:322,
+  reviewBranch:'work/atlas-summary-review',
   headings:['지역권','장소·체험','여행 유형','저자 평가·경험','추천 이유(원문 기반)','현행 검증','원문 글 번호','원문 링크','상세 근거 위치','여행 결정 메모','세부 근거','방문·추천 구분','국가']
 });
 function atlasAssert_(test,description){if(!test)throw new Error('Atlas sync halted: '+description);}
@@ -23,10 +24,10 @@ function atlasReadApprovedRows_(){
  atlasAssert_(!!ss,'script must be bound to the canonical Google Sheet');
  const sheet=ss.getSheetByName(ATLAS_SYNC.sourceTab);
  atlasAssert_(!!sheet,'source tab missing');
- atlasAssert_(sheet.getLastRow()>=323,'approved rows missing');
+ atlasAssert_(sheet.getLastRow()>=ATLAS_SYNC.approvedCount+1,'approved rows missing');
  const headers=sheet.getRange(1,1,1,13).getDisplayValues()[0].map(atlasText_);
  atlasAssert_(JSON.stringify(headers)===JSON.stringify(ATLAS_SYNC.headings),'source header layout changed');
- return {records:sheet.getRange(2,1,322,13).getDisplayValues(),pendingRows:Math.max(0,sheet.getLastRow()-323)};
+ return {records:sheet.getRange(2,1,ATLAS_SYNC.approvedCount,13).getDisplayValues(),pendingRows:Math.max(0,sheet.getLastRow()-ATLAS_SYNC.approvedCount-1)};
 }
 function atlasGithubRequest_(url,options){
  const response=UrlFetchApp.fetch(url,Object.assign({muteHttpExceptions:true,followRedirects:true},options||{}));
@@ -34,8 +35,8 @@ function atlasGithubRequest_(url,options){
  atlasAssert_(status>=200&&status<300,'GitHub returned HTTP '+status);
  return JSON.parse(response.getContentText());
 }
-function atlasGetPublicFile_(){
- const url='https://api.github.com/repos/'+ATLAS_SYNC.repo+'/contents/'+ATLAS_SYNC.path+'?ref='+ATLAS_SYNC.branch;
+function atlasGetPublicFile_(ref){
+ const url='https://api.github.com/repos/'+ATLAS_SYNC.repo+'/contents/'+ATLAS_SYNC.path+'?ref='+encodeURIComponent(ref||ATLAS_SYNC.branch);
  const headers={Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10'};
  const token=PropertiesService.getScriptProperties().getProperty('GITHUB_FINE_GRAINED_TOKEN');
  if(token)headers.Authorization='Bearer '+token;
@@ -53,7 +54,8 @@ function atlasBuildCandidate_(){
  atlasAssert_(remote.html.includes('id="themeShortcuts"')&&remote.html.includes('id="search"'),'unexpected website version');
  atlasAssert_(!/(?:app\.notion\.com|docs\.google\.com|id="myTripData"|file-upload:\/\/)/i.test(remote.html),'private link found on public site');
  const payload=JSON.parse(found[0][2]);
- atlasAssert_(Array.isArray(payload.items)&&payload.items.length===322,'approved record count changed');
+ atlasAssert_(Array.isArray(payload.items)&&payload.items.length===ATLAS_SYNC.approvedCount,'approved record count changed');
+ atlasAssert_(payload.items[322].article_id==='29'&&payload.items[323].article_id==='67','reviewed new records/order changed');
  let changes=0;const modified=[];
  const newItems=payload.items.map((item,i)=>{
    const row=sheet.records[i];
@@ -64,16 +66,22 @@ function atlasBuildCandidate_(){
    const isRedacted=item.article_id==='396'&&item.country==='몽골'&&item.place==='몽골 초원의 사적 목장 방문';
    if(isRedacted){
      atlasAssert_(atlasText_(row[1]).includes('목장'),'protected anonymous record changed');
-     return item; // Never copy the private original place, relationship or notes.
+     return item; // Never copy the private original name, relationship or notes.
    }
-   atlasAssert_(atlasText_(row[1])===atlasText_(item.place),'source row '+(i+2)+' place changed; manual taxonomy review needed');
+   // One reviewed public display name intentionally omits the old hotel name in the source.
+   const expectedSourcePlace=item.article_id==='29'
+     ?'The Empire Brunei(구 The Empire Hotel & Country Club)'
+     :atlasText_(item.place);
+   atlasAssert_(atlasText_(row[1])===expectedSourcePlace,'source row '+(i+2)+' place changed; manual place review required');
+   atlasAssert_(atlasText_(row[2])===atlasText_(item.kind),'source row '+(i+2)+' original category changed');
+   // The two newly approved records are public, but their descriptive fields require
+   // individual editorial review; do not silently copy future private Sheet edits.
+   if(i>=ATLAS_SYNC.autoRefreshCount)return item;
    const out=Object.assign({},item);
-   atlasAssert_(atlasText_(row[2])===atlasText_(item.kind),'source row '+(i+2)+' original category changed; reclassify public spot manually');
    [['author_assessment',3],['editorial_reason',4],['verification',5],['author_relation',11]].forEach(([key,col])=>{
      const v=atlasText_(row[col]);
      if(v!==atlasText_(item[key])){
        out[key]=atlasSafePublicField_(v,key+' row '+(i+2));
-       if(key==='kind')atlasAssert_(['자연·걷기','도시·생활','역사·문화','음식·주류','숙박·온천'].includes(v),'unknown type');
        changes++;modified.push(i+2);
      }
    });
@@ -89,26 +97,64 @@ function atlasBuildCandidate_(){
 }
 function previewAtlasSync(){
  const x=atlasBuildCandidate_();
- const result={status:'preview',approvedRecords:322,changedFields:x.changes,modifiedRowNumbers:x.modified,pendingNewRows:x.pendingRows};
+ const result={status:'preview',approvedRecords:324,autoRefreshRecords:322,manualReviewRecords:2,changedFields:x.changes,modifiedRowNumbers:x.modified,pendingNewRows:x.pendingRows};
  Logger.log(JSON.stringify(result));return result;
+}
+// No automated writes to main. Optional script-side staging is an explicit opt-in.
+// The only permitted write target is a new review branch and a DRAFT pull request.
+function atlasGithubHeaders_(token){
+ const headers={Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10'};
+ if(token)headers.Authorization='Bearer '+token;
+ return headers;
+}
+function atlasEnsureReviewBranchAbsent_(token){
+ const url='https://api.github.com/repos/'+ATLAS_SYNC.repo+'/git/ref/heads/'+ATLAS_SYNC.reviewBranch;
+ const response=UrlFetchApp.fetch(url,{method:'get',muteHttpExceptions:true,headers:atlasGithubHeaders_(token)});
+ const status=response.getResponseCode();
+ atlasAssert_(status===404,'review branch already exists or branch lookup failed (HTTP '+status+')');
 }
 function syncAtlasNow(){
  const lock=LockService.getScriptLock();lock.waitLock(30000);
  try{
-   const x=atlasBuildCandidate_();
-   if(!x.changes){const r={status:'no_changes',pendingNewRows:x.pendingRows};Logger.log(JSON.stringify(r));return r;}
-   const token=PropertiesService.getScriptProperties().getProperty('GITHUB_FINE_GRAINED_TOKEN');
-   atlasAssert_(typeof token==='string'&&token.length>=20,'GITHUB_FINE_GRAINED_TOKEN is not configured');
-   const url='https://api.github.com/repos/'+ATLAS_SYNC.repo+'/contents/'+ATLAS_SYNC.path;
-   const body={message:'Sync approved public atlas source fields ('+x.changes+' changes)',sha:x.sha,branch:'main',content:Utilities.base64Encode(Utilities.newBlob(x.html,'text/html').getBytes())};
-   const r=atlasGithubRequest_(url,{method:'put',contentType:'application/json',
-     headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2026-03-10'},payload:JSON.stringify(body)});
-   const result={status:'committed',commit:r.commit&&r.commit.sha||'',changedFields:x.changes,pendingNewRows:x.pendingRows};
+   const x=atlasBuildCandidate_(); // Safe preview and full 324-row identity gate first.
+   if(!x.changes){const r={status:'no_changes',approvedRecords:324,pendingNewRows:x.pendingRows};Logger.log(JSON.stringify(r));return r;}
+   const props=PropertiesService.getScriptProperties();
+   atlasAssert_(props.getProperty('ATLAS_REVIEW_PR_SYNC_ENABLED')==='true','draft-PR staging not explicitly enabled');
+   const token=props.getProperty('GITHUB_FINE_GRAINED_TOKEN');
+   atlasAssert_(typeof token==='string'&&token.length>=20,'draft-PR token is not configured');
+   const base='https://api.github.com/repos/'+ATLAS_SYNC.repo;
+   const headers=atlasGithubHeaders_(token);
+   // Never overwrite a prior pending writer or silently revise an already reviewed PR.
+   const pulls=atlasGithubRequest_(base+'/pulls?state=open&head='+encodeURIComponent('indisohari:'+ATLAS_SYNC.reviewBranch)+'&base=main&per_page=10',{method:'get',headers:headers});
+   atlasAssert_(Array.isArray(pulls),'unexpected pull request list');
+   if(pulls.length){
+     const r={status:'pending_review',url:pulls[0].html_url||'',changedFields:x.changes};
+     Logger.log(JSON.stringify(r));return r;
+   }
+   atlasEnsureReviewBranchAbsent_(token);
+   const main=atlasGithubRequest_(base+'/git/ref/heads/main',{method:'get',headers:headers});
+   atlasAssert_(main&&main.object&&/^[0-9a-f]{40}$/i.test(main.object.sha),'invalid main commit ref');
+   const pinned=atlasGetPublicFile_(main.object.sha);
+   atlasAssert_(pinned.sha===x.sha,'main changed while preparing review: retry later');
+   atlasGithubRequest_(base+'/git/refs',{method:'post',headers:headers,contentType:'application/json',
+     payload:JSON.stringify({ref:'refs/heads/'+ATLAS_SYNC.reviewBranch,sha:main.object.sha})});
+   const content=Utilities.base64Encode(Utilities.newBlob(x.html,'text/html').getBytes());
+   atlasGithubRequest_(base+'/contents/'+ATLAS_SYNC.path,{method:'put',headers:headers,contentType:'application/json',
+     payload:JSON.stringify({message:'Review selected public atlas summary updates',sha:x.sha,branch:ATLAS_SYNC.reviewBranch,content:content})});
+   const pr=atlasGithubRequest_(base+'/pulls',{method:'post',headers:headers,contentType:'application/json',
+     payload:JSON.stringify({title:'Review public atlas summary changes ('+x.changes+' fields)',
+       head:ATLAS_SYNC.reviewBranch,base:'main',draft:true,maintainer_can_modify:false,
+       body:'Draft only. '+x.changes+' vetted-source field differences from the original 322 refreshable rows. Human inspection and explicit approval required. No new destinations, private source links, coordinates or operator availability. Never auto-merge.'})});
+   atlasAssert_(pr&&typeof pr.html_url==='string','GitHub draft PR creation unverified; inspect created review branch');
+   const result={status:'draft_pr_created',url:pr.html_url,changedFields:x.changes,pendingNewRows:x.pendingRows};
    Logger.log(JSON.stringify(result));return result;
  }finally{lock.releaseLock();}
 }
 function installDailyTrigger(){
+ const props=PropertiesService.getScriptProperties();
+ atlasAssert_(props.getProperty('ATLAS_REVIEW_PR_SYNC_ENABLED')==='true','draft-PR staging not explicitly enabled');
+ atlasAssert_((props.getProperty('GITHUB_FINE_GRAINED_TOKEN')||'').length>=20,'draft-PR token missing');
  ScriptApp.getProjectTriggers().filter(t=>t.getHandlerFunction()==='syncAtlasNow').forEach(t=>ScriptApp.deleteTrigger(t));
  ScriptApp.newTrigger('syncAtlasNow').timeBased().everyDays(1).atHour(9).inTimezone('Asia/Seoul').create();
- Logger.log('Kihang Atlas daily trigger installed (Asia/Seoul)');
+ Logger.log('Atlas draft review PR trigger installed (Asia/Seoul). No automatic main commits.');
 }

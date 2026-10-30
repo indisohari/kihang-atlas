@@ -1,5 +1,22 @@
 # Kihang Atlas — place-first architecture (2026-10-29)
 
+## 2026-10-30 draft expansion — complete source snapshot, not live
+
+Draft PR #2 (stacked on Draft PR #1) promotes only #29 The Empire Brunei (historical first-hand resort stay) and #67 LEGOLAND Malaysia (father/son theme-park visit) into the public-derived source **for editorial review**. The base 322 source objects and historical/source-geography qualifications remain unchanged. The staged total is **324 parent observations / 180 essay URLs, 51 country/combined labels, Korea 141 / outside Korea 183**.
+
+The full staged 324-record source was counted independently of the older taxonomy snapshot retained below:
+
+| Current `record_form` | Staged records |
+| --- | ---: |
+| `spot` (named candidate) | 197 |
+| `area` | 49 |
+| `route` | 33 |
+| `experience` | 40 |
+| `event` | 5 |
+| **Total** | **324** |
+
+Brunei's existing *country polygon* is now selectable and has a polygon-derived viewport center; **no venue coordinate/pin** is represented. Hotel and theme-park official pages confirm **administrative locations only**, while prices, operator conditions, opening, cleanliness, pest risks and travel-day transit are unverified. Earlier 322/178/199 statements below are preserved as historic descriptions of the previously documented baseline, not the current draft data. See [release gates](ATLAS_324_STAGED_RELEASE.md).
+
 ## Public product definition
 
 The public Atlas is a source-linked **discovery index**, not a booking directory or a list of fully geocoded pins. The source-of-truth is a separate private personal Google Sheet. The site's curated publication contains **322 editorial experience records from 178 original Brunch essays**. No personal Notion trip record or private Google Sheet link is included.
