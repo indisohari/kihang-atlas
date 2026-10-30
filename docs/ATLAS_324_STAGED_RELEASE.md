@@ -52,3 +52,7 @@ Not included in this change: 38 unapproved child-place suggestions, precise map 
 - Proposed changes from original 322 public summaries are **never written directly to `main`**; optional explicitly enabled action creates a **public Draft PR** on `work/atlas-summary-review`, or stops when the branch/PR is already pending. Two new source records remain manually reviewed for future changes.
 - The test file `tests/atlas_release.test.cjs` passed **19 of 19** tests in a clean temporary Node runtime using complete raw GitHub `index.html` and `automation/Code.gs`. No real GitHub writes, Google authorization, or scheduled jobs were performed.
 - The optional integration is **not a blocker for publishing the static website**. Recurring data transfer, new PR permissions and installation remain separate owner-only decisions.
+
+## 2026-10-30 extended browser matrix — 76 / 76 PASS
+
+Using the exact full public HTML fetched from the Draft PR #2 branch, Playwright activated every distinct selectable mapped country (**50**), all place-type options (**12**), all source editorial kinds (**5**) and all season evidence filters (**8**), then confirmed clean reset to 324 (**1**). Each live DOM count was compared to an independent count derived from the 324 JSON records; **zero mismatches**. The map tests include country-level Brunei selection. This adds 76 explicit browser consistency checks to the earlier focused keyboard/privacy/mobile tests, but is not an exhaustive Cartesian product of every combined filter or a claim that external venues are operating.
