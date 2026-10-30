@@ -8,13 +8,13 @@ Static, source-linked place and experience atlas of public [Brunch](https://brun
 
 | Target | Source observations | Distinct original essay URLs | Status |
 | --- | ---: | ---: | --- |
-| GitHub Pages / \`main\` | **324** | **180** | Deployed; live HTTP 200 and public HTML source counts verified |
+| GitHub Pages / `main` | **324** | **180** | Deployed; live HTTP 200 and public HTML source counts verified |
 | [Merged PR #1](https://github.com/indisohari/kihang-atlas/pull/1) | 322 | 178 | Centered accessible modal, cautious Maps text search, status metadata, five reviewed place-type corrections |
 | [Merged PR #2](https://github.com/indisohari/kihang-atlas/pull/2) | **324** | **180** | Adds the approved #29 and #67 public source records |
 
-Release commit on \`main\`: \`264e1bab4c507862d75f5a3fbc22678632724fcc\`. Korea 141 / outside Korea 183, with 51 country-or-combined labels. New source observations are **#29 The Empire Brunei** (historical 2007 resort stay) and **#67 LEGOLAND Malaysia** (author-and-son visit). The legacy 322 source identities and essay URLs were preserved; PR #1 also made five targeted place-type corrections and added public operational-status qualification fields.
+Release commit on `main`: `264e1bab4c507862d75f5a3fbc22678632724fcc`. Korea 141 / outside Korea 183, with 51 country-or-combined labels. New source observations are **#29 The Empire Brunei** (historical 2007 resort stay) and **#67 LEGOLAND Malaysia** (author-and-son visit). The legacy 322 source identities and essay URLs were preserved; PR #1 also made five targeted place-type corrections and added public operational-status qualification fields.
 
-The source field \`author_relation\` describes **the essay author's** reported visit, not the atlas owner's experience. Map shading is **country coverage only**, not a visited GPS point. Brunei has a selectable country outline; no exact venue coordinates were added. Historical venue opening, prices, transport, accommodation hygiene, pest risk, and other current operational details are not verified.
+The source field `author_relation` describes **the essay author's** reported visit, not the atlas owner's experience. Map shading is **country coverage only**, not a visited GPS point. Brunei has a selectable country outline; no exact venue coordinates were added. Historical venue opening, prices, transport, accommodation hygiene, pest risk, and other current operational details are not verified.
 
 ## Where to browse
 
@@ -34,8 +34,8 @@ The centered source detail dialog supports keyboard focus and Escape, with origi
 ## QA and publishing
 
 - Public live HTML was fetched with no cache on **2026-10-31** (HTTP 200): **324 source observations / 180 original article links / 51 country labels**. Interactive production checks were targeted; do not conflate this with an exhaustive multi-filter or accessibility audit.
-- At the 2026-10-30 staged checkpoint, 19/19 deterministic offline tests and 76/76 full-source browser facet checks passed, with additional responsive, modal keyboard and privacy checks. Those were **pre-deployment** checks, not new CI runs on \`main\`.
-- The source-level no-dependency regression remains \`node tests/atlas_release.test.cjs\`. **The proposed CI follow-up PR** adds \`.github/workflows/atlas-verify.yml\` and \`tests/atlas_browser_smoke.cjs\` for repeatable read-only Chromium checks. Treat GitHub Actions as active/passing **only after** this PR is reviewed, merged and actual checks are observed.
+- At the 2026-10-30 staged checkpoint, 19/19 deterministic offline tests and 76/76 full-source browser facet checks passed, with additional responsive, modal keyboard and privacy checks. Those were **pre-deployment** checks, not new CI runs on `main`.
+- The source-level no-dependency regression remains `node tests/atlas_release.test.cjs`. **The proposed CI follow-up PR** adds `.github/workflows/atlas-verify.yml` and `tests/atlas_browser_smoke.cjs` for repeatable read-only Chromium checks. Treat GitHub Actions as active/passing **only after** this PR is reviewed, merged and actual checks are observed.
 - No code path in the tests writes to a private Sheet, triggers synchronization, changes GitHub permissions, or publishes new source rows. Source updates require editorial evidence and a separate review; production changes must use a reviewed PR.
 - GitHub PR review submissions and CI status were absent at the initial release checkpoint. An independent final reviewer verdict is not implied by author-run tests or by owner approval.
 
