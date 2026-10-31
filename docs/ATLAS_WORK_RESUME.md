@@ -13,6 +13,12 @@
 4. For follow-up work, use a separate branch and Draft PR. Never merge, publish new rows, change permissions, or activate Apps Script without the relevant separate authorization.
 5. Keep **source state, code staged, CI run, Pages deployment, live UI verification, editorial review and current operator status** distinct. A successful job does not prove the other stages.
 
+## 2026-10-31 follow-up QA snapshot (new PR; not part of the published main)
+
+- [Draft PR #4](https://github.com/indisohari/kihang-atlas/pull/4) stages documentation reconciliation and stronger tests, with no changes to the 324 JSON source records. It is not merged or deployed at this checkpoint.
+- Initial PR head `d939747ab01fed8394ee925f2265e3761a8925b3` passed [CI run 41200115953](https://github.com/indisohari/kihang-atlas/actions/runs/41200115953): **22/22 Node, 372/372 Chromium**. Reverify any later head after documentation or review edits; passing tests do not replace independent final review.
+- Remaining editorial work (#114, #421, #584, #507, #382, #109, #2) is not publication authorization. The legacy audit below is evidence at its stated time, not a current contents/source-coverage inventory.
+
 ## Historical 2026-10-30 source audit — retained evidence, not current release counts
 
 - 415 source essays were deep-analyzed in the private source; 322 published experience records derive from 178 of them. The other 237 articles are **not automatically omissions**.
