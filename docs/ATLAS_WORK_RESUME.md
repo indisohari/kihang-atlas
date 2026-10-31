@@ -1,20 +1,19 @@
 # Kihang Atlas — Resume ledger
 
-**Updated:** 2026-10-30 KST  
-**Work branch:** `work/atlas-coverage-popup-20261030`  
-**Main baseline:** `0f165d42fe36c38532ca9e3847c3b13f2349878b`  
-**Public service:** https://indisohari.github.io/kihang-atlas/ (tracks `main` only)  
-**Status:** IN PROGRESS. Working-branch evidence, tests and proposed UI changes are not a live deployment.
+**Updated:** 2026-10-31 KST  
+**Verified main:** `0425ce1cb4ac0dc7e2507ea35d5ee3c03a595f57`  
+**Published site:** https://indisohari.github.io/kihang-atlas/ (`main`/GitHub Pages; 324 observations, 180 distinct essays at last source verification)  
+**Status:** PRs #1/#2/#3 merged; latest `main` [read-only CI](https://github.com/indisohari/kihang-atlas/actions/runs/41133907939) and [Pages workflow](https://github.com/indisohari/kihang-atlas/actions/runs/41133906932) succeeded. This file's 2026-10-30 research notes are preserved as historical snapshots; no Apps Script automation is active.
 
 ## Resume contract for any next session
 
-1. Check latest `main` SHA, open GitHub PRs and this work branch. Prefer the open PR that includes this file; do not repeat already committed work.
-2. Read `README.md`, `docs/PLACE_MODEL.md`, `docs/CONTENT_CLASSIFICATION.md`, `automation/SETUP.md`, this ledger, and the current PR diff. Re-read the private canonical Google Sheet and original articles only when needed for a specific evidence claim; do not copy private source URLs/IDs into this public repo.
-3. Keep the approved published baseline `322` observations / `178` essay URLs and the protected anonymous Mongolian ranch record unchanged until an explicitly reviewed publication expansion. The website is a derived public projection, not the private source of truth.
-4. Work only on the branch/PR with current file SHAs. Do not merge to `main`, publish private trip records, change permissions or activate Google Apps Script without separate confirmation.
-5. Distinguish **code staged**, **tests run**, **merged**, **Pages deployed**, **browser verified**, **source checked**, and **operator currently open**. Never infer one from another.
+1. Re-read `main`, open and closed Issues/PRs, check runs and the public Pages file before assuming this snapshot remains current; do not recreate merged PR #1/#2/#3 changes.
+2. Read `README.md`, `docs/PLACE_MODEL.md`, `docs/CONTENT_CLASSIFICATION.md`, `automation/SETUP.md`, this ledger and any current PR diff. For a concrete editorial evidence claim, check its public original article; private canonical Sheet material stays outside this public repository.
+3. Preserve the reviewed published **324 source observations / 180 original essay URLs** and the anonymized #396 Mongolian ranch. Do not confuse public observations with distinct places or source-article coverage.
+4. For follow-up work, use a separate branch and Draft PR. Never merge, publish new rows, change permissions, or activate Apps Script without the relevant separate authorization.
+5. Keep **source state, code staged, CI run, Pages deployment, live UI verification, editorial review and current operator status** distinct. A successful job does not prove the other stages.
 
-## Verified baseline and audit findings
+## Historical 2026-10-30 source audit — retained evidence, not current release counts
 
 - 415 source essays were deep-analyzed in the private source; 322 published experience records derive from 178 of them. The other 237 articles are **not automatically omissions**.
 - An earlier named-place review ledger has 249 entries: 166 marked included and 83 excluded (68 reasoned exclusions, 15 functional duplicates). This is a different unit from the 322 published observations.
@@ -27,9 +26,9 @@
 
 ## Work queue
 
-1. **P0 UI:** Replace the right-side full-height detail drawer with an accessible centered responsive modal, preserve existing article detail and focus handling; add a Google Maps **search** action only when editorial geography is sufficiently distinct. Map search is not verified coordinates or proof of an operating business.
-2. **P0 code QA:** Compare Git blob SHAs, preserve the exact 322 embedded observations and all 178 essay URLs, search public HTML for private URLs/credentials; run syntax and browser checks at 320/390/768/1365 px, keyboard Escape/Tab, duplicates/related essays, filters, and source links.
-3. **P1 coverage:** Re-evaluate all 415 article analysis rows and the 249-name ledger, tracking `existing`, `missing`, `excluded`, `same-place-different-essay`, `mentioned-only`, `reported`, `critical`, `planned`, `restricted` states. Promote nothing from heuristics alone.
+1. **Completed in merged PRs #1–#3:** centered responsive modal, cautious Maps search, 324/180 release, read-only CI, base keyboard/filter responsive checks. Do not re-implement the merged features.
+2. **Current P0 follow-up:** align old release documentation; test anonymized map links against alternate providers and geo-status changes, country identity beyond count, open mobile modal focus/overflow, and combined filters. Keep the published source objects and visual design stable.
+3. **P1 coverage (review only; no new public row without editorial approval):** Re-evaluate all 415 article analysis rows and the 249-name ledger, tracking `existing`, `missing`, `excluded`, `same-place-different-essay`, `mentioned-only`, `reported`, `critical`, `planned`, `restricted` states. Promote nothing from heuristics alone.
 4. **P1 priority evidence:** First-hand Baekchon/Siloam (#114), cruise stops (#421), extra place links (#2), heritage facilities (#382), nuance of the older Mogamiya stay (#507).
 5. **P2 publication pipeline:** The existing `automation/Code.gs` is staged and supports only edits to 322 previously approved rows/summary fields. Do not treat it as an approved insertion/classification sync.
 
@@ -40,7 +39,7 @@
 
 ## 2026-10-30 follow-on audit tranche — source-first review
 
-The current PR #1 remains open/draft; main is still `0f165d42`. Do not duplicate the completed popup/Maps patch. The original 322 entries are untouched.
+**Historical checkpoint, 2026-10-30:** PR #1 was then open/draft and `main` was then `0f165d42`; this is **not** the current PR or publication state. The prior 322 observations were untouched at that checkpoint.
 
 ### Prioritized editorial decisions (not publication authorization)
 
@@ -100,4 +99,4 @@ The 237 article IDs with zero public observations were screened by a **heuristic
 - Produce a structured, reviewable evidence queue keyed by article ID and candidate place, with relation and confidence; keep sensitive raw material in the private Sheet, not this public repository.
 - Re-read original #114, #421, #584, #507 and sample other source articles to resolve ambiguities; check current official administrative name/municipality before Maps pins.
 - Fix clearly miscategorized published records in a separate, reviewed PR only after checking each source record and taxonomy.
-- PR #1 popup/Maps patch remains staged and browser-tested; do not merge to main without owner approval.
+- **Historical checkpoint only:** PR #1's popup/Maps change was still staged during this review. PRs #1–#3 have now merged; future revisions require a new, separately reviewed Draft PR.

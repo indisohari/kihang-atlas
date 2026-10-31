@@ -15,9 +15,9 @@ The previous main-site baseline was **322 observations / 178 essay URLs**. Owner
 
 Of these, Korea remains at 141 and other countries increase to 183. Country/combined labels increase to 51 (Brunei +1; Malaysia from 2 to 3). No verified seasonality was added for #29 or #67. Below, 322/178 and prior place-form counts describe historical editorial snapshots; current published form totals are in [PLACE_MODEL.md](PLACE_MODEL.md). The 324/180 publication was verified from the live Pages HTML on 2026-10-31.
 
-The public source collection contains **322 parent experiences** linked to **178 distinct original Brunch essays**. No personal Notion trip records are included.
+At the **2026-10-29 classification checkpoint**, the source collection contained **322 parent experiences** linked to **178 distinct original Brunch essays**. The published 2026-10-31 snapshot is **324 / 180**, as enumerated above. No personal Notion trip records are included.
 
-## One source-defined category per record
+## Historical 2026-10-29 category snapshot (322-record baseline)
 
 | Source category | Records |
 |---|---:|
@@ -38,7 +38,7 @@ Two editorial improvements: `Blue Note Hawaii 라이브재즈` no longer appears
 
 - Korea: 141/141 assigned a province/metropolitan area, 134/141 given local descriptors.
 - Japan: 43/45 assigned a prefecture, 21/45 local descriptors. Two Oze Marsh records lack source-explicit prefectures and remain unresolved.
-- 50 country or combined-country labels. Parent experiences spanning multiple regions do not become duplicate parent records. `경기 광주` is kept distinct from Gwangju Metropolitan City.
+- **Historical baseline:** 50 country or combined-country labels; the published 2026-10-31 release has **51**. Parent experiences spanning multiple regions do not become duplicate parent records. `경기 광주` is kept distinct from Gwangju Metropolitan City.
 
 ## Seasonality
 

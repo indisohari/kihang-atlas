@@ -1,13 +1,13 @@
 # Kihang Atlas — private Sheet → human-reviewed public summary proposals
 
-**Revision:** 2026-10-30, Draft PR #2. **Status:** source and mocks only. No bound Apps Script, PAT, trigger, actual GitHub write, or Pages deployment is configured by this change.
+**Revision:** 2026-10-31 public release checkpoint (after merged PRs #1–#3). **Automation status:** source code and offline mocks only; no bound Apps Script, PAT, trigger or actual Sheet→GitHub Draft PR run verified. The published Pages deployment is separate and already completed.
 
 This optional Apps Script reads the personal canonical Google Sheet and **proposes** selected public-summary edits in a **GitHub Draft PR**. A draft PR in a public repository is **public**, not private storage. The script never writes to `main` and never merges.
 
 ## Publication versus optional automation
 
-- **Website:** Draft PR #1 adds the accessible popup/Maps text search; stacked Draft PR #2 adds two owner-approved records, reaching **324 observations / 180 Brunch original URLs**. Until they are deliberately merged, the live Pages website is still **322 / 178**.
-- **Automation:** A separate owner-controlled setup for recurring public proposals. Neither publication nor website browsing requires this script. Do not run it against the 322-record site: the new code intentionally fails if the public source count is not 324.
+- **Website:** PRs #1 and #2 were merged and published on 2026-10-31 (**324 observations / 180 original Brunch essay URLs**); merged PR #3 added read-only CI. Neither publication nor browsing depends on automation.
+- **Automation:** A separate owner-controlled setup for optional recurring public proposals, **not activated by this release**. The code intentionally rejects any site/source count other than 324, including the historical 322-record version; a passing offline mock does not verify a real Sheet binding.
 
 ## Exact scope and privacy contract
 
@@ -19,7 +19,7 @@ This optional Apps Script reads the personal canonical Google Sheet and **propos
 - Private #396 Mongolian ranch remains public-anonymous `몽골 초원의 사적 목장 방문`; the private original name, relationship, notes and location are never copied. URLs, contacts, personal markers or similar sensitive-looking summary text are rejected.
 - Any Sheet row beyond 324 is reported as `pendingNewRows`, never automatically added. A changed public record count, identity or private-data signal aborts the run.
 
-## Owner-only optional activation AFTER the 324 release
+## Optional activation reference — requires a separate owner decision
 
 1. Open the **verified personal original Sheet** → Extensions → Apps Script. Check the intended account and bound file. Copy reviewed [Code.gs](Code.gs), optionally [appsscript.json](appsscript.json) for exact scopes. V8 runtime, time zone Asia/Seoul.
 2. Run `previewAtlasSync()` first, without a PAT. Expected on an unchanged 324-source site: `approvedRecords:324`, `autoRefreshRecords:322`, `manualReviewRecords:2`, `changedFields:0`, `pendingNewRows:0`. These results are conditional on the then-current public site and Sheet.
@@ -33,7 +33,7 @@ The script requires **both** an explicit boolean opt-in and the PAT for any new 
 ## Verification and limitations
 
 - Run `node tests/atlas_release.test.cjs`. No npm dependencies. The **19 unit/release tests** operate only on public Atlas JSON-derived synthetic Sheet rows, with placeholder private columns, and mock all GitHub and Apps Script writes. Tests cover 324 identity/no-op, pending source rows, protected privacy, alias, source category changes, stale site, missing credentials, opt-in, existing pending PR/branch, and branch-plus-draft PR-only staging.
-- The authentic 324 HTML underwent Playwright-browser filtering/search/map/keyboard QA at 320, 390, 768 and 1365 px. **Not verified:** real bound Google authentication, PAT permission grants, actual branch/PR creation from Apps Script, a scheduled trigger, ongoing source change behavior, or public 324 Pages runtime.
+- The authentic 324 HTML underwent prior Playwright-browser QA at 320, 390, 768 and 1365 px; merged [main CI run 41133907939](https://github.com/indisohari/kihang-atlas/actions/runs/41133907939) separately passed 19/19 Node and 112/112 Chromium checks, and Pages deployment workflow succeeded. **Not verified:** real bound Google authentication, PAT permission grants, actual branch/PR creation from Apps Script, scheduled triggers, ongoing source changes, or an independent new full production-browser audit.
 - No current venue opening, booking, coordinates, private source documents, full source essays, new children, or access/permissions changes are authorized by this script.
 
 References: [GitHub API versions](https://docs.github.com/en/rest/about-the-rest-api/api-versions) · [Git refs](https://docs.github.com/en/rest/git/refs) · [GitHub draft PR API](https://docs.github.com/en/rest/pulls/pulls) · [Apps Script triggers](https://developers.google.com/apps-script/guides/triggers/installable) · [Apps Script properties](https://developers.google.com/apps-script/guides/properties).
