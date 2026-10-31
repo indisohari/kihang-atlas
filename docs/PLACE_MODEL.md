@@ -6,7 +6,7 @@ Merged PR #2 (following merged PR #1) published only #29 The Empire Brunei (hist
 
 The published 324-record source was counted independently of the older 322-record taxonomy snapshot retained below:
 
-| Current `record_form` | Staged records |
+| Published `record_form` (2026-10-31) | Records |
 | --- | ---: |
 | `spot` (named candidate) | 197 |
 | `area` | 49 |
@@ -19,7 +19,7 @@ Brunei's existing *country polygon* is now selectable and has a polygon-derived 
 
 ## Public product definition
 
-The public Atlas is a source-linked **discovery index**, not a booking directory or a list of fully geocoded pins. The source-of-truth is a separate private personal Google Sheet. The site's curated publication contains **322 editorial experience records from 178 original Brunch essays**. No personal Notion trip record or private Google Sheet link is included.
+The public Atlas is a source-linked **discovery index**, not a booking directory or a list of fully geocoded pins. The source-of-truth is a separate private personal Google Sheet. At the **2026-10-29 architecture checkpoint**, the curated publication contained **322 editorial experience records from 178 original Brunch essays**; the **2026-10-31 published release contains 324 records from 180 essays** as verified above. No personal Notion trip record or private Google Sheet link is included.
 
 ### Entity and relationship model
 
@@ -29,10 +29,10 @@ The public Atlas is a source-linked **discovery index**, not a booking directory
 - **Area**: a city, neighborhood, island group, historical district or multi-venue locale; do not invent an individual POI.
 - **Event**: a dated festival or program, not a permanently operating venue.
 - **Experience**: a contextual food/culture/nature story with insufficient evidence to assert one exact POI.
-- **Source observation**: one of the 322 source-backed excerpts, retaining original Brunch article URL and the direct-visit vs suggestion distinction as transcribed.
+- **Source observation**: one independently sourced excerpt linked to an original Brunch URL; 322 existed at the 2026-10-29 baseline and 324 are published at the 2026-10-31 release. A source observation is not automatically a distinct physical place.
 - **Entity linkage**: `canonical_place_id` and `related_record_indices` combine a *reviewed exact-name duplicate* without deleting source observations. E.g. two '연홍도' entries refer to one geographic place with two distinct source records.
 
-### Current conservative discovery classification
+### Historical 2026-10-29 conservative classification (322-record baseline)
 
 | Record form | Experience records |
 |---|---:|

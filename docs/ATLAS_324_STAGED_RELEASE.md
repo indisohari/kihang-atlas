@@ -1,7 +1,7 @@
-# Atlas 324 / 180: full-source staged release review
+# Atlas 324 / 180: published release with historical staging evidence
 
 **Date:** 2026-10-30 KST  
-**Status:** **Published** to GitHub Pages on 2026-10-31 KST, after owner-approved sequential merges. The stages below remain historical test evidence.  
+**Status:** **Published** to GitHub Pages on 2026-10-31 KST, after owner-approved sequential merges. PR #3 subsequently merged the read-only CI checks. `main` was re-read on 2026-10-31 at `0425ce1cb4ac0dc7e2507ea35d5ee3c03a595f57`; [main CI 41133907939](https://github.com/indisohari/kihang-atlas/actions/runs/41133907939) reported 19/19 Node and 112/112 browser checks. The original staged checkpoints below remain historical evidence, not instructions to merge again.  
 **Stack base:** `work/atlas-coverage-popup-20261030` at `c87e32342b4f8531765e4ab5a3e3178c181aeda5`.
 
 ## Approved additions
@@ -26,7 +26,7 @@ Both records are *author* observations, not the atlas owner's personal visit. Al
 ## Release checklist (staged checkpoints and 2026-10-31 completion)
 
 - [x] **Real full-file browser regression (targeted)** using this branch's exact `index.html` downloaded directly by a browser at 324 records / 180 source links: 320/390/768/1365 px no horizontal overflow or JS page errors; Brunei SVG click updates breadcrumb and yields 1 record; searches find #29 and #67 and open official evidence + original essays; Escape closes modal and restores card focus; protected Mongolian ranch and ambiguous `호남식당` show no map-search action; two `연홍도` observations show related essay linkage; `stay`=21 and source lodging kind=25. Country/region/facet **exhaustive combinations** and full external URL availability were not tested.
-- [x] **Documentation alignment (draft scope):** README, place model and classification audit now distinguish published 322/178 baseline from staged 324/180. Pre-release editorial copy can be reviewed before publication.
+- [x] **Documentation alignment (at the draft checkpoint):** README, place model and classification audit distinguished the older 322/178 publication from the staged 324/180 proposal. This is a historical checkpoint; publication and the follow-up CI merge have since completed.
 - [x] **Automation source review and offline mocks:** `automation/Code.gs` validates 324 reviewed public records and an explicit #29 name alias, while restricting proposed text refresh to the original 322 rows. It now creates **only a Draft PR on a separate review branch** (never commits directly to `main`). All 19 offline regression/mock tests passed with synthetic public-only fixtures. `automation/SETUP.md` explicitly separates owner-only PAT/OAuth/trigger authorization. **Real bound Apps Script + token staging integration remains unverified and inactive.**
 - [x] **Stack integration and owner-approved release:** PR #1 merged to `main` as `3c81db10ab79ba0d37cadfa8a2bf97c35ea6ac5c`; PR #2 retargeted to that `main` and merged as `264e1bab4c507862d75f5a3fbc22678632724fcc`. Fresh public Pages HTML HTTP 200 independently parsed to 324 observations / 180 original essay URLs. This confirms publication, not exhaustive production UI accessibility.
 
@@ -43,12 +43,12 @@ Not included in this change: 38 unapproved child-place suggestions, precise map 
 - Search `연홍도` → 2 distinct source records; detail #283 links to #109, not merged or discarded.
 - Escape closes the detail dialog and returns focus to its trigger card. No new external services or browser write actions activated.
 
-**Still open:** broad exhaustive cross-filter combinations, offline pristine reproducibility (no local complete HTML bytes were exported in this pass), prior launch documentation/Apps Script activation gate, final PR stacking/merge and GitHub Pages runtime verification. **Do not confuse test pass with deployment.**
+**Still open at this 2026-10-30 staging checkpoint:** broad exhaustive cross-filter combinations, offline pristine reproducibility (no local complete HTML bytes were exported in this pass), launch documentation/Apps Script activation, final PR stacking/merge and GitHub Pages runtime verification. The merge and Pages steps were completed afterward; do not treat this historical list as a current to-do.
 
 ## 2026-10-30 optional review-only synchronization compatibility
 
 - The current canonical Google Sheet contains exactly 324 published source rows and 180 distinct public Brunch source IDs; a row-by-row comparison of all 324 public records found only the expected reviewed #29 old-name display alias difference in identity fields.
-- `previewAtlasSync()` now fails closed against the older live 322 website, which is intended until the owner-approved 324 release is deployed.
+- At this 2026-10-30 checkpoint, `previewAtlasSync()` failed closed against the then-live 322 website. Since the 324 release, the old public-count mismatch is no longer the expected normal state; actual Google Sheets binding and authorization remain unverified.
 - Proposed changes from original 322 public summaries are **never written directly to `main`**; optional explicitly enabled action creates a **public Draft PR** on `work/atlas-summary-review`, or stops when the branch/PR is already pending. Two new source records remain manually reviewed for future changes.
 - The test file `tests/atlas_release.test.cjs` passed **19 of 19** tests in a clean temporary Node runtime using complete raw GitHub `index.html` and `automation/Code.gs`. No real GitHub writes, Google authorization, or scheduled jobs were performed.
 - The optional integration is **not a blocker for publishing the static website**. Recurring data transfer, new PR permissions and installation remain separate owner-only decisions.
@@ -59,9 +59,23 @@ Using the exact full public HTML fetched from the Draft PR #2 branch, Playwright
 
 ## 2026-10-31 completed release / remaining verification
 
-- Owner approved a one-release exception to merge the two stacked draft PRs. PR #1 and PR #2 are both closed/merged, and `main` is `264e1bab4c507862d75f5a3fbc22678632724fcc`.
+- At the PR #2 release checkpoint, the owner had approved merging two stacked draft PRs. PR #1 and PR #2 were closed/merged, and `main` **then** was `264e1bab4c507862d75f5a3fbc22678632724fcc` (historical SHA, superseded by PR #3).
 - The actual public website at https://indisohari.github.io/kihang-atlas/ returned HTTP 200 on an uncached fetch, with 324 embedded source observations, 180 distinct original Brunch essay URLs, and 51 country labels; The Empire Brunei #29 and LEGOLAND Malaysia #67 are served.
 - Targeted live browser controls (new search, country choice and lodging selection) were exercised. This does **not** make the earlier 76/76 staged matrix into a production matrix. Full production browser/regression completion remains pending a reproducible run and its recorded verdict.
-- The follow-up review branch `work/atlas-ci-final-qa-20261031` adds read-only GitHub Actions regression tests. A proposed CI workflow is not proven active until its PR has an actual successful workflow run; merge should follow a separate final review.
+- At this intermediate checkpoint, `work/atlas-ci-final-qa-20261031` proposed read-only GitHub Actions regression tests. PR #3 later merged; the subsequent successful `main` CI run independently establishes execution of those tests, but does not establish exhaustive accessibility compliance.
 - GitHub release PRs #1/#2 had no recorded check statuses or independent submitted review verdict at the initial release verification. Do not mislabel self-checks as independent provider review.
 - Optional Google Apps Script integration, OAuth, PAT grant, daily trigger and live Sheet synchronization remain **inactive and unverified**; none is needed to operate the static public site.
+
+## 2026-10-31 post-merge verification (current at recorded SHA)
+
+- PRs [#1](https://github.com/indisohari/kihang-atlas/pull/1), [#2](https://github.com/indisohari/kihang-atlas/pull/2) and [#3](https://github.com/indisohari/kihang-atlas/pull/3) are merged; `main` points to `0425ce1cb4ac0dc7e2507ea35d5ee3c03a595f57`.
+- [Main verification workflow](https://github.com/indisohari/kihang-atlas/actions/runs/41133907939): success; logged `tests=19, passed=19, failed=0`, and `status=PASS, checks=112` on the exact main revision.
+- [Pages deployment workflow](https://github.com/indisohari/kihang-atlas/actions/runs/41133906932): success on that revision. An earlier independent HTTP 200/public HTML inspection is recorded above; this follow-up read did **not** independently re-fetch the deployed site, so fresh production UI behavior remains separate from CI and deployment status.
+- Outstanding follow-up: broader privacy mutation tests, equal-count country identity checks, mobile modal focus/overflow and combined-filter regressions; current operational venue details and optional Apps Script authorization are outside this release's verification scope.
+
+## 2026-10-31 Phase A/B follow-up regression checkpoint (Draft PR #4)
+
+- [Draft PR #4](https://github.com/indisohari/kihang-atlas/pull/4) separates current publication from historical release audit notes, corrects two stale 322-record display strings without editing the embedded source data, and expands security/privacy/accessibility/interaction regressions. It is **not** a release until separately reviewed and merged.
+- [CI run 41200115953](https://github.com/indisohari/kihang-atlas/actions/runs/41200115953), head `d939747ab01fed8394ee925f2265e3761a8925b3`: **22/22 Node**, **372/372 Chromium**, both logged PASS. This count is an actual expanded test run, not an addition of earlier 112 and 76 checkpoint numbers. Any subsequent documentation commit still requires its own final-revision CI.
+- Regression scope includes protected #396 and synthetic Google/Naver/Kakao/alternate-map URL injection; map redaction despite simulated geographic status promotion; all 50 mapped countries with record IDs, state, breadcrumb and keyboard switching; 320px/390px opened dialog bounds, close focus, Tab trap and Escape restoration; combined filters, empty state/reset and pagination; page exceptions and console errors.
+- Out of scope: actual source additions or geocoding, all possible combinatorial filter states, exhaustive screen-reader testing, WCAG conformance certification, independently re-fetched Pages runtime, and Apps Script authentication/trigger integration.
