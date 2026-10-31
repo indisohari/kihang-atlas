@@ -90,6 +90,45 @@ test('public redaction, link safety and country map',()=>{
  }
 });
 test('production inline JavaScript parses',()=>{const chunks=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert(chunks.length>0);chunks.forEach((x,i)=>new vm.Script(x[1],{filename:'inline-'+i+'.js'}));});
+
+test('public copy and record IDs match 324/180 release',()=>{
+ assert(html.includes('id="placeHitTotal">324개 기록</small>'));
+ assert(html.includes('전체 324개 원문 기록의 건수는 중복하지 않습니다.'));
+ assert(!html.includes('전체 322개 원문 기록의 건수는 중복하지 않습니다.'));
+});
+test('protected #396 has an anonymous public identity and no precise position',()=>{
+ const ranch=data.items.find(x=>x.article_id==='396');
+ assert(ranch,'#396 must exist');
+ assert.equal(ranch.place,'몽골 초원의 사적 목장 방문');
+ assert.equal(ranch.article_url,'https://brunch.co.kr/@gosisain/396');
+ assert.equal(ranch.country,'몽골');
+ assert.deepEqual(ranch.geo_review?.regions,[]);
+ assert.deepEqual(ranch.geo_review?.localities,[]);
+ assert.equal(ranch.map_search_query,undefined);
+ for(const key of ['lat','lng','latitude','longitude','coordinates','gps','address','map_url','place_url']){
+  assert.equal(ranch[key],undefined,'protected top-level field '+key);
+  assert.equal(ranch.geo_review?.[key],undefined,'protected geographic field '+key);
+ }
+ assert.match(ranch.public_note,/사적 공간/);
+});
+test('protected #396 maps gate survives future verification and detects a broken guard',()=>{
+ const ranch=data.items.find(x=>x.article_id==='396');
+ const source=html.match(/function atlasMapSearchUrl\(item\)\{[\s\S]*?\n\}/)?.[0];
+ assert(source,'production maps gate must remain testable');
+ const gated=vm.runInNewContext('('+source+')');
+ const synthetic={...ranch,record_form:'spot',
+  geo_review:{status:'verified_admin',regions:['SYNTHETIC REGION'],localities:['SYNTHETIC LOCALITY']},
+  map_search_query:'SYNTHETIC NONPUBLIC TEST PLACE'};
+ assert.equal(gated(synthetic),'','verified_admin must not expose a protected search');
+ const ordinary={...synthetic,article_id:'SYNTHETIC-UNPROTECTED'};
+ assert.match(gated(ordinary),/^https:\/\/www\.google\.com\/maps\/search\//,'positive control for synthetic place');
+ const brokenSource=source.replace("||item.article_id==='396'",'');
+ assert.notEqual(brokenSource,source,'negative fixture must remove the actual protected guard');
+ const brokenGate=vm.runInNewContext('('+brokenSource+')');
+ assert.match(brokenGate(synthetic),/^https:\/\/www\.google\.com\/maps\/search\//,
+  'mutation control proves the protected gate can detect the injected regression');
+});
+
 test('safe 324 source preview is a no-op',()=>{const f=mock(),r=f.run();assert.equal(r.approvedRecords,324);assert.equal(r.autoRefreshRecords,322);assert.equal(r.manualReviewRecords,2);assert.equal(r.changedFields,0);assert.equal(r.pendingNewRows,0);assert.equal(f.writes().length,0);});
 test('one unapproved new Sheet row stays pending',()=>{const r=mock({pending:1}).run();assert.equal(r.pendingNewRows,1);assert.equal(r.approvedRecords,324);});
 test('safe legacy summary change yields preview only',()=>{const f=mock({change:true}),r=f.run();assert.equal(r.changedFields,1);assert.equal(f.writes().length,0);});
